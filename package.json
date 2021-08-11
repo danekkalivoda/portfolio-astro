@@ -1,0 +1,28 @@
+{
+  "name": "portfolio-astro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "astro dev",
+    "build": "astro build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danekkalivoda/portfolio-astro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danekkalivoda/portfolio-astro/issues"
+  },
+  "homepage": "https://github.com/danekkalivoda/portfolio-astro#readme",
+  "devDependencies": {
+    "alpinejs": "^3.2.3",
+    "tailwindcss": "^2.2.7"
+  },
+  "dependencies": {
+    "astro": "^0.18.9"
+  }
+}

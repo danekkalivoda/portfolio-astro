@@ -1,0 +1,20 @@
+---
+import Header from '../components/Header.astro'
+const {title, description, homepage} = Astro.props;
+---
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="stylesheet" type="text/css" href="/global.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script defer type="module" src="/global.js"></script>
+  </head>
+  <body>
+    <Header homepage={homepage ? true : false}></Header>
+    <slot name="beforeContent"/>
+    <slot />
+  </body>
+</html>

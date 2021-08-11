@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    html{
+        scroll-behavior: smooth;
+    }
+    body{
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        @apply bg-gray-900 text-gray-400;
+    }
+    .wave{
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Eline-chart%3C/title%3E%3Cg stroke-width='1' fill='none' stroke='%23FACC15' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='0.5 8.5 4.5 4.5 7.5 7.5 11.5 3.5'%3E%3C/polyline%3E%3C/g%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        @apply inline-flex align-middle bg-center bg-no-repeat;
+    }
+}
+@layer utilities{
+    @variants responsive{
+        .smt-0{
+            scroll-margin-top: 0
+        }
+        .smt-22{
+            scroll-margin-top: 5.5rem
+        }
+        .smt-28{
+            scroll-margin-top: 7rem
+        }
+        .smt-32{
+            scroll-margin-top: 8rem
+        }
+        .smt-40{
+            scroll-margin-top: 10rem
+        }
+        .smt-48{
+            scroll-margin-top: 12rem
+        }
+    }
+}

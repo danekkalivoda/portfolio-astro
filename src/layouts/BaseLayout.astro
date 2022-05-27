@@ -1,20 +1,20 @@
 ---
-import Header from '../components/Header.astro'
+import OHeader from '../components/organisms/o_header.astro'
 const {title, description, homepage} = Astro.props;
 ---
-<html>
+<html lang="cs">
   <head>
     <meta charset="UTF-8">
     <title>{title}</title>
     <meta name="description" content={description}>
-    <link rel="stylesheet" type="text/css" href="/global.css">
+    <link rel="stylesheet" type="text/css" href={Astro.resolve("../assets/css/global.css")}>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script defer type="module" src="/global.js"></script>
+    <script defer type="module" src={Astro.resolve("../assets/js/global.js")}></script>
   </head>
-  <body>
-    <Header homepage={homepage ? true : false}></Header>
+  <body x-data={"header()"}>
+    <OHeader homepage={homepage} />
     <slot name="beforeContent"/>
     <slot />
+    <slot name="afterContent"/>
   </body>
 </html>

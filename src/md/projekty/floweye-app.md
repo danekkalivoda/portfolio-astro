@@ -2,7 +2,7 @@
 order: 10
 title: Floweye
 description: Návrh v Adobe XD, jako frontend použitý Gridsome/Tailwind, jako backend stačí markdown soubory v repozitáři;).
-image: /ispa.png
+image: /ispa-cz.png
 category:
     - design
     - development

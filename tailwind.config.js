@@ -40,7 +40,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '"Nunito Sans"',
+        '"General Sans"',
         "ui-sans-serif",
         "system-ui",
         "-apple-system",
@@ -69,6 +69,7 @@ module.exports = {
       }),
       padding: {
         "16/9": "56.2%",
+        "16/10": "62.5%",
       },
       width: (theme) => ({
         128: "32rem",
@@ -93,6 +94,16 @@ module.exports = {
         90: "90",
         100: "100",
       },
+      transitionDelay: {
+        100: "100ms",
+        200: "200ms",
+        400: "400ms",
+        600: "600ms",
+        600: "600ms",
+        700: "700ms",
+        800: "800ms",
+        900: "900ms",
+      }
     },
   },
   plugins: [

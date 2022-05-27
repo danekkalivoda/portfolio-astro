@@ -1,0 +1,55 @@
+---
+import MProject from '../components/molecules/m_project.astro'
+const data = Astro.fetchContent('../md/projekty/*.md').sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+---
+<div class="relative z-20 ">
+    <div
+        class="relative min-h-screen px-4 pt-8 bg-white transform-gpu smt-12 sm:smt-16 sm:px-16 sm:pt-16 md:pt-24"
+        id="projekty"
+        x-data={'{shown : false }'}
+    >
+        <div
+            class="absolute left-0 w-full pointer-events-none -top-16 sm:-top-20"
+            x-intersect:leave="header = 'white'; content = 'hidden'; animateContent = false;"
+            x-intersect:enter="header = 'default'; content = 'visible'"
+        >
+        </div>
+        <div
+            class="absolute left-0 w-full pointer-events-none bottom-24"
+            x-intersect:enter="header = 'white'"
+        >
+        </div>
+        <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
+            <div
+                class="w-full transition-opacity duration-500 ease-in-out delay-300 xl:w-1/3 xl:sticky xl:top-40 xl:pb-24"
+                x-bind:class={"[shown ? 'opacity-100' : 'opacity-0']"}
+            >
+                <h2
+                    class="relative block mb-4 overflow-hidden text-xl font-bold text-gray-900 uppercase transform sm:text-3xl lg:text-5xl xl:text-6xl sm:mb-8"
+                >
+                    <span
+                        class="relative z-10 block px-4 py-2 transition-transform duration-500 ease-in-out delay-300 sm:px-8 sm:-mx-8 2xl:px-16 2xl:-mx-16"
+                        x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
+                    >
+                        Projekty
+                    </span>
+                </h2>
+                <div class="px-4 mb-8 overflow-hidden text-lg text-gray-600 lg:text-xl sm:px-0">
+                    <p
+                        class="leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform"
+                        x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
+                    >
+                        Některé pouze navrhuji, některé i kóduji. O technologiích, které používám se dočtete v sekci <a href="#sluzby" class="inline-block text-transparent border-b border-blue-500 bg-gradient-to-tr from-blue-600 to-green-400 bg-clip-text hover:border-b-transparent">služby</a>. Z pohledu čísel, mám za sebou stovky navržených webů a eshopů, 13let je pro mně práce koníčkem.
+                    </p>
+                </div>
+            </div>
+            <section
+                class="flex flex-wrap items-stretch pb-4 overflow-hidden sm:-mx-8 md:-mx-12 xl:w-2/3 xl:mx-0 xl:pl-24"
+            >
+                {data.slice(0, 6).map((project, index) => (
+                    <MProject project={project} index={index} />
+                ))}
+            </section>
+        </div>
+    </div>
+</div>

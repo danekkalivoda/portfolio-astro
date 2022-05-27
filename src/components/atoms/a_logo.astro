@@ -1,0 +1,20 @@
+---
+export interface Props {
+  homepage: boolean;
+}
+const { homepage } = Astro.props;
+---
+<a
+    href={homepage ? '/#top' : '/'}
+    x-bind:class="[header === 'white' ? 'text-gray-900' : 'text-white']"
+    class="flex items-center justify-center w-auto 3xl:ml-2"
+>
+    <div class="flex-shrink-0 mr-4 overflow-hidden rounded-full">
+        <img src="/danek.jpg" width="1120" height="880" class="object-cover w-8 h-8 overflow-hidden rounded-full sm:w-12 sm:h-12">
+    </div>
+    <h1
+        class="flex-shrink-0 mr-4 font-medium tracking-tighter uppercase sr-only sm:not-sr-only"
+    >
+        Dan Kalivoda
+    </h1>
+</a>

@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "General Sans";
+    src: url("../fonts/GeneralSans-Regular.woff2") format("woff2"),
+      url("../fonts/GeneralSans-Regular.woff") format("woff"),
+      url("../fonts/GeneralSans-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "General Sans";
+    src: url("../fonts/GeneralSans-Medium.woff2") format("woff2"),
+      url("../fonts/GeneralSans-Medium.woff") format("woff"),
+      url("../fonts/GeneralSans-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'General Sans';
+    src: url('../fonts/GeneralSans-Semibold.woff2') format('woff2'),
+         url('../fonts/GeneralSans-Semibold.woff') format('woff'),
+         url('../fonts/GeneralSans-Semibold.ttf') format('truetype');
+         font-weight: 600;
+         font-display: swap;
+         font-style: normal;
+  }
+  @font-face {
+    font-family: "General Sans";
+    src: url("../fonts/GeneralSans-Bold.woff2") format("woff2"),
+      url("../fonts/GeneralSans-Bold.woff") format("woff"),
+      url("../fonts/GeneralSans-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    @apply bg-gray-900 text-gray-400;
+  }
+  .wave {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Eline-chart%3C/title%3E%3Cg stroke-width='1' fill='none' stroke='%230EA5E9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='0.5 8.5 4.5 4.5 7.5 7.5 11.5 3.5'%3E%3C/polyline%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    @apply inline-flex align-middle bg-center bg-no-repeat;
+  }
+}
+@layer utilities {
+  @variants responsive {
+    .smt-0 {
+      scroll-margin-top: 0;
+    }
+    .smt-12 {
+        scroll-margin-top: 3rem;
+      }
+    .smt-16 {
+        scroll-margin-top: 4rem;
+      }
+    .smt-20 {
+      scroll-margin-top: 5rem;
+    }
+    .smt-22 {
+      scroll-margin-top: 5.5rem;
+    }
+    .smt-24 {
+      scroll-margin-top: 6rem;
+    }
+    .smt-28 {
+      scroll-margin-top: 7rem;
+    }
+    .smt-32 {
+      scroll-margin-top: 8rem;
+    }
+    .smt-40 {
+      scroll-margin-top: 10rem;
+    }
+    .smt-48 {
+      scroll-margin-top: 12rem;
+    }
+  }
+}

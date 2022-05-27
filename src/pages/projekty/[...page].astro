@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+export async function getStaticPaths({ paginate }) {
+
+    let allProjects = Astro.fetchContent('../../md/projekty/*.md');
+    allProjects = allProjects.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
+    return paginate(allProjects, {
+        pageSize: 5
+    });
+}
+const { page } = Astro.props;
+
+function elUndefined (element) {
+    if (typeof element == "undefined") {
+        return true
+    }
+    return false
+}
+---
+<BaseLayout
+    title="Daniel Kalivoda - Product designer, UI developer"
+    description="Mám rád funkční věci, které vycházejí z vysokých nároků klienta. Navrhuji weby, mobilní aplikace a UI/UX interních informačních systémů."
+>
+    <main>
+      <h5>Results {page.start + 1}–{page.end + 1} of {page.total}</h5>
+        {page.data.map((project) => (
+            <div>
+                <h1>{project.title}</h1>
+                <div>{project.description}</div>
+            </div>
+        ))}
+    </main>
+    <footer>
+        <h4>Page {page.currentPage} / {page.lastPage}</h4>
+        <nav class="nav">
+        {!elUndefined(page.url.prev) && (
+            <a class="prev" href={page.url.prev || '#'}>Předchozí</a>
+        )}
+        {elUndefined(page.url.prev) && (
+            <div>Předchozí</div>
+        )}
+        {!elUndefined(page.url.next) && (
+            <a class="next" href={page.url.next} >Další</a>
+        )}
+      </nav>
+    </footer>
+</BaseLayout>

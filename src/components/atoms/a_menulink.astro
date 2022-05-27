@@ -1,0 +1,16 @@
+---
+export interface Props {
+  link: string;
+}
+const { link } = Astro.props;
+---
+<a
+    href={link}
+    x-bind:class="[
+        header === 'default' && 'text-gray-600 hover:text-white',
+        header === 'white' && 'text-gray-400 hover:text-gray-900'
+    ]"
+    class="flex items-center justify-center w-1/4 px-2 text-xs transition-colors duration-150 ease-in-out sm:p-4 sm:text-sm lg:text-base xl:px-8"
+>
+    <slot />
+</a>

@@ -2,6 +2,7 @@ import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
 
 import { initHeader } from "../js/components/header.js";
+import { initHeroAvatar } from "../js/components/heroAvatar.js";
 import { initHeaderSections } from "../js/components/headerSections.js";
 
 Alpine.plugin(intersect)
@@ -104,6 +105,7 @@ const initViewportHeightFix = () => {
 };
 
 initHeader();
+initHeroAvatar();
 initViewportHeightFix();
 
 Alpine.start();

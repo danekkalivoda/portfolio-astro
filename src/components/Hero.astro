@@ -9,17 +9,32 @@
         ]"
     >
         <div class="flex flex-col items-center w-full text-center sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl pb-12">
-            <img
-                src="/Daniel_Kalivoda.webp"
-                alt="Daniel Kalivoda"
-                class="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] lg:w-[250px] lg:h-[250px] object-cover rounded-full shadow-lg shadow-black/30 mb-4 sm:mb-6"
-            />
-            <p class="max-w-3xl text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
+            <div
+                class="hero-avatar-hit w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] lg:w-[250px] lg:h-[250px] rounded-lg mb-4 sm:mb-6"
+                x-data={"heroAvatar()"}
+                x-bind:data-active="active"
+                x-bind:style="{ '--tilt-x': tiltX, '--tilt-y': tiltY, '--shift-x': shiftX, '--shift-y': shiftY }"
+                x-on:pointerenter="onEnter($event)"
+                x-on:pointermove.passive="onMove($event)"
+                x-on:mousemove="onMove($event)"
+                x-on:pointerleave="onLeave()"
+                x-on:pointercancel="onLeave()"
+                x-on:mouseleave="onLeave()"
+            >
+                <div class="hero-avatar">
+                    <img
+                        src="/Daniel_Kalivoda.webp"
+                        alt="Daniel Kalivoda"
+                        class="hero-avatar__image"
+                    />
+                </div>
+            </div>
+            <p class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
               <span class="text-white">Ahoj jsem Daniel Kalivoda.</span>
             </p>
-            <h2 class="py-2 text-2xl font-bold tracking-tighter text-transparent uppercase bg-linear-to-tr from-blue-500 to-green-300 sm:text-5xl lg:text-7xl  bg-clip-text px-4">
+            <h2 class="py-2 text-3xl font-bold tracking-tighter text-transparent uppercase bg-linear-to-tr from-blue-500 to-green-300 sm:text-5xl lg:text-7xl bg-clip-text px-4">
                 Designer & Developer</h2>
-            <p class="max-w-3xl text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
+            <p class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
                 <span class="text-white">15+ let zkušeností s designem i vývojem.</span><br class="sm:hidden"/> TypeScript-first přístup, komponentový vývoj ve Storybooku a AI nástroje mi umožňují dodávat kvalitní, udržitelné a přístupné produkty.
             </p>
         </div>
@@ -31,3 +46,58 @@
     data-hero-section
 >
 </div>
+
+<style>
+  .hero-avatar-hit {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --shift-x: 0%;
+    --shift-y: 0%;
+    position: relative;
+  }
+
+  .hero-avatar {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    transform-style: preserve-3d;
+    transform-origin: center;
+    backface-visibility: hidden;
+    will-change: transform;
+    transition: transform 220ms ease;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    pointer-events: none;
+    box-shadow: 0 22px 40px -18px rgb(0 0 0 / 0.35);
+  }
+
+  .hero-avatar-hit[data-active="true"] .hero-avatar {
+    transition: transform 0s;
+  }
+
+  .hero-avatar__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+    transition: transform 220ms ease;
+    transform: translate3d(var(--shift-x), var(--shift-y), 0) scale(1.16);
+    pointer-events: none;
+  }
+
+  .hero-avatar-hit[data-active="true"] .hero-avatar__image {
+    transition: transform 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-avatar {
+      transform: none;
+      transition: none;
+    }
+
+    .hero-avatar__image {
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

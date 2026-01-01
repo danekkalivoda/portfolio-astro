@@ -1,7 +1,6 @@
 ---
 import OHeader from '../components/organisms/o_header.astro'
 import globalStylesUrl from '../assets/css/global.css?url'
-import globalScriptUrl from '../assets/js/global.js?url'
 
 const {title, description, homepage} = Astro.props;
 ---
@@ -14,7 +13,9 @@ const {title, description, homepage} = Astro.props;
 
     <link rel="stylesheet" type="text/css" href={globalStylesUrl}>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <script defer type="module" src={globalScriptUrl}></script>
+    <script>
+      import '../assets/js/global.js'
+    </script>
   </head>
 
 

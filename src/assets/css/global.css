@@ -374,6 +374,28 @@ body {
   color: var(--color-vestra) !important;
 }
 
+/* Browser autofill styling override
+   Uses box-shadow trick to cover forced browser backgrounds (yellow/blue) */
+.floating-label-input:-webkit-autofill,
+.floating-label-input:-webkit-autofill:hover,
+.floating-label-input:-webkit-autofill:focus,
+.floating-label-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px rgb(17 24 39) inset !important;
+  box-shadow: 0 0 0px 1000px rgb(17 24 39) inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.floating-label-input:autofill,
+.floating-label-input:autofill:hover,
+.floating-label-input:autofill:focus,
+.floating-label-input:autofill:active {
+  box-shadow: 0 0 0px 1000px rgb(17 24 39) inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white;
+}
+
 /* ==========================================================================
    Header Navigation Scroll with Fade Mask
    - Horizontal scroll on small screens

@@ -37,6 +37,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
             </MSectionHeading>
             <div
                 class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"
+                x-data="{ submitting: false, success: false, error: null, showForm: true }"
             >
                 <form
                     name="contact"
@@ -45,8 +46,31 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     class="space-y-12"
-                    x-data="{ submitting: false }"
-                    x-on:submit="submitting = true"
+                    x-ref="contactForm"
+                    x-show="showForm"
+                    x-on:submit.prevent="
+                        submitting = true;
+                        error = null;
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams(new FormData($el)).toString()
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                success = true;
+                                showForm = false;
+                            } else {
+                                throw new Error('Submission failed');
+                            }
+                        })
+                        .catch(err => {
+                            error = 'Při odesílání zprávy došlo k chybě. Zkuste to prosím znovu.';
+                        })
+                        .finally(() => {
+                            submitting = false;
+                        });
+                    "
                 >
                     <!-- Hidden form-name field required for Astro/JS-rendered forms -->
                     <input type="hidden" name="form-name" value="contact" />
@@ -101,6 +125,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                         class="floating-label-group floating-label-group--select"
                         x-data="{ hasValue: false }"
                         x-bind:class="{ 'has-value': hasValue }"
+                        x-on:reset-select.window="hasValue = false"
                     >
                         <select
                             id="service"
@@ -139,6 +164,23 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             POPIŠTE VÁŠ PROJEKT <span class="text-red-500">*</span>
                         </label>
                     </div>
+                    <!-- Error message (shown when submission fails) -->
+                    <div
+                        x-show="error"
+                        x-cloak
+                        class="p-4 rounded-lg bg-red-900/30 border border-red-500/50"
+                    >
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="text-red-400 font-medium" x-text="error"></p>
+                                <p class="text-red-400/70 text-sm mt-1">Zkontrolujte připojení k internetu a zkuste to znovu.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <ASparkleButton
                             type="submit"
@@ -150,6 +192,44 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                         />
                     </div>
                 </form>
+
+                <!-- Success message (shown after successful submission) -->
+                <div
+                    x-show="success"
+                    x-cloak
+                    class="text-center py-12"
+                >
+                    <div class="mb-8">
+                        <svg class="w-20 h-20 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                        Zpráva odeslána
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-8">
+                        Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button
+                            type="button"
+                            class="inline-flex items-center gap-2 px-5 py-2 text-lg font-semibold text-white bg-gray-800 border border-gray-700 rounded hover:bg-gray-700 transition-colors"
+                            x-on:click="
+                                success = false;
+                                showForm = true;
+                                $refs.contactForm.reset();
+                                window.dispatchEvent(new CustomEvent('reset-select'));
+                            "
+                        >
+                            Odeslat další zprávu
+                        </button>
+                        <ASparkleButton
+                            href="/"
+                            text="Zpět na úvodní stránku"
+                            variant="dark"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

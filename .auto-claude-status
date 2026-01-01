@@ -3,13 +3,13 @@
   "spec": "016-intersection-effect",
   "state": "building",
   "subtasks": {
-    "completed": 1,
+    "completed": 2,
     "total": 5,
     "in_progress": 1,
     "failed": 0
   },
   "phase": {
-    "current": "Core Component Updates",
+    "current": "Parent-Controlled Component Updates",
     "id": null,
     "total": 2
   },
@@ -18,8 +18,8 @@
     "max": 1
   },
   "session": {
-    "number": 2,
+    "number": 3,
     "started_at": "2026-01-01T19:29:34.170055"
   },
-  "last_update": "2026-01-01T19:31:08.721212"
+  "last_update": "2026-01-01T19:32:24.571672"
 }

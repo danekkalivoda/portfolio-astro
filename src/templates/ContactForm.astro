@@ -42,7 +42,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                 <form
                     name="contact"
                     method="POST"
-                    action="/success"
+                    action="/success/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     class="space-y-12"
@@ -51,7 +51,8 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     x-on:submit.prevent="
                         submitting = true;
                         error = null;
-                        fetch('/', {
+                        const action = $el.getAttribute('action') || '/';
+                        fetch(action, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                             body: new URLSearchParams(new FormData($el)).toString()

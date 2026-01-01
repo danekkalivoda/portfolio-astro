@@ -162,6 +162,23 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             POPIŠTE VÁŠ PROJEKT <span class="text-red-500">*</span>
                         </label>
                     </div>
+                    <!-- Error message (shown when submission fails) -->
+                    <div
+                        x-show="error"
+                        x-cloak
+                        class="p-4 rounded-lg bg-red-900/30 border border-red-500/50"
+                    >
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div>
+                                <p class="text-red-400 font-medium" x-text="error"></p>
+                                <p class="text-red-400/70 text-sm mt-1">Zkontrolujte připojení k internetu a zkuste to znovu.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <ASparkleButton
                             type="submit"

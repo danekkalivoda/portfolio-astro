@@ -37,6 +37,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
             </MSectionHeading>
             <div
                 class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"
+                x-data="{ submitting: false, success: false, error: null, showForm: true }"
             >
                 <form
                     name="contact"
@@ -45,7 +46,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
                     class="space-y-12"
-                    x-data="{ submitting: false, success: false, error: null, showForm: true }"
+                    x-show="showForm"
                     x-on:submit.prevent="
                         submitting = true;
                         error = null;
@@ -172,6 +173,30 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                         />
                     </div>
                 </form>
+
+                <!-- Success message (shown after successful submission) -->
+                <div
+                    x-show="success"
+                    x-cloak
+                    class="text-center py-12"
+                >
+                    <div class="mb-8">
+                        <svg class="w-20 h-20 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                        Zpráva odeslána
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-8">
+                        Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
+                    </p>
+                    <ASparkleButton
+                        href="/"
+                        text="Zpět na úvodní stránku"
+                        variant="dark"
+                    />
+                </div>
             </div>
         </div>
     </div>

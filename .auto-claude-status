@@ -1,25 +1,25 @@
 {
   "active": true,
-  "spec": "013-i-would-like-the-inputs-in-the-contact-form-on-the",
+  "spec": "016-intersection-effect",
   "state": "building",
   "subtasks": {
-    "completed": 0,
-    "total": 1,
+    "completed": 2,
+    "total": 5,
     "in_progress": 1,
     "failed": 0
   },
   "phase": {
-    "current": "Implementation",
-    "id": 1,
-    "total": 1
+    "current": "Parent-Controlled Component Updates",
+    "id": null,
+    "total": 2
   },
   "workers": {
     "active": 0,
     "max": 1
   },
   "session": {
-    "number": 1,
-    "started_at": "2026-01-01T18:51:02.734350"
+    "number": 3,
+    "started_at": "2026-01-01T19:29:34.170055"
   },
-  "last_update": "2026-01-01T18:51:02.736832"
+  "last_update": "2026-01-01T19:32:24.571672"
 }

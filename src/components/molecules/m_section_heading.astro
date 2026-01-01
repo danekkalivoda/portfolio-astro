@@ -29,7 +29,7 @@ const pbClass = bottomPadding === 'large' ? 'xl:pb-32' : 'xl:pb-24';
         </span>
     </h2>
     <div class:list={["mb-8 overflow-hidden text-base sm:text-lg lg:text-xl", descColor]}>
-        <p class:list={["leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform pl-9 pr-4 xl:pr-0 xl:pl-5", { "mb-4 sm:mb-8": showButton }]} x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']" x-intersect:enter="shown = true">
+        <p class:list={["leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform pl-9 pr-4 xl:pr-0 xl:pl-5", { "mb-4 sm:mb-8": showButton }]} x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']" x-intersect:enter="shown = true" x-intersect:leave="shown = false">
             {props.description}
         </p>
         {showButton && props.buttonText && (

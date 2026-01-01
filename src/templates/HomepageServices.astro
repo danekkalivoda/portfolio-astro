@@ -80,6 +80,7 @@ const skills: ISkill[] = [
                 <div
                     x-data="{ skillsShown: false }"
                     x-intersect:enter="skillsShown = true"
+                    x-intersect:leave="skillsShown = false"
                 >
                     {skills.map((skill, index) => (
                         <MSkill

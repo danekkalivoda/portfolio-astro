@@ -46,7 +46,29 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     data-netlify-honeypot="bot-field"
                     class="space-y-12"
                     x-data="{ submitting: false, success: false, error: null, showForm: true }"
-                    x-on:submit="submitting = true"
+                    x-on:submit.prevent="
+                        submitting = true;
+                        error = null;
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: new URLSearchParams(new FormData($el)).toString()
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                success = true;
+                                showForm = false;
+                            } else {
+                                throw new Error('Submission failed');
+                            }
+                        })
+                        .catch(err => {
+                            error = 'Při odesílání zprávy došlo k chybě. Zkuste to prosím znovu.';
+                        })
+                        .finally(() => {
+                            submitting = false;
+                        });
+                    "
                 >
                     <!-- Hidden form-name field required for Astro/JS-rendered forms -->
                     <input type="hidden" name="form-name" value="contact" />

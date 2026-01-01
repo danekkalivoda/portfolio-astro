@@ -39,12 +39,26 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                 class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"
             >
                 <form
-                    action="https://submit-form.com/dpPht14BY"
+                    name="contact"
                     method="POST"
+                    action="/success"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
                     class="space-y-12"
                     x-data="{ submitting: false }"
                     x-on:submit="submitting = true"
                 >
+                    <!-- Hidden form-name field required for Astro/JS-rendered forms -->
+                    <input type="hidden" name="form-name" value="contact" />
+
+                    <!-- Honeypot field for spam protection (hidden from users) -->
+                    <p class="hidden">
+                        <label>
+                            Don't fill this out if you're human:
+                            <input name="bot-field" />
+                        </label>
+                    </p>
+
                     <div class="floating-label-group">
                         <input
                             type="text"

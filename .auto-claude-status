@@ -1,25 +1,25 @@
 {
   "active": true,
-  "spec": "004-https-kalivoda-design",
+  "spec": "005-the-contact-form-is-connected-to-form-sparkle-and-",
   "state": "building",
   "subtasks": {
-    "completed": 5,
-    "total": 7,
+    "completed": 3,
+    "total": 4,
     "in_progress": 1,
     "failed": 0
   },
   "phase": {
-    "current": "Contact Section Translation",
+    "current": "Integration Verification",
     "id": null,
-    "total": 1
+    "total": 2
   },
   "workers": {
     "active": 0,
     "max": 1
   },
   "session": {
-    "number": 6,
-    "started_at": "2026-01-01T14:53:59.476754"
+    "number": 4,
+    "started_at": "2026-01-01T14:57:25.442776"
   },
-  "last_update": "2026-01-01T15:01:52.602118"
+  "last_update": "2026-01-01T15:02:09.884851"
 }

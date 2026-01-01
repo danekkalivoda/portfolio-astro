@@ -1,6 +1,6 @@
 {
   "active": true,
-  "spec": "011-uncaught-typeerror-failed-to-resolve-module-specif",
+  "spec": "009-new-testimonial",
   "state": "building",
   "subtasks": {
     "completed": 0,
@@ -19,7 +19,7 @@
   },
   "session": {
     "number": 1,
-    "started_at": "2026-01-01T17:39:28.453182"
+    "started_at": "2026-01-01T18:45:57.257965"
   },
-  "last_update": "2026-01-01T17:39:28.457073"
+  "last_update": "2026-01-01T18:45:57.262559"
 }

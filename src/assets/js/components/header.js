@@ -1,27 +1,18 @@
 export const initHeader = () => {
-  if (hasHeaderComponent()) {
-    start();
-  }
-};
-
-/**
- * Checks if page has header component
- * @return {Boolean}
- */
-const hasHeaderComponent = () => {
-  return document.querySelectorAll("[x-data='header()']").length > 0;
+  start();
 };
 
 const start = () => {
   window.header = () => {
     return {
-      header: "default",
-      content: "hidden",
-      animateContent: true,
+      // Note: header color state is now handled by CSS clip-path in headerSections.js
+      // These properties are used by Hero.astro for content animations
+      content: "visible",
+      animateContent: false,
       init() {
-          this.$nextTick(() => {
-            this.content = "visible"
-          })
+        this.$nextTick(() => {
+          this.animateContent = true;
+        });
       }
     };
   };

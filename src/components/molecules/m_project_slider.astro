@@ -1,0 +1,141 @@
+---
+export interface IProject {
+    title: string;
+    description: string;
+    images: string[];
+    categories: string[];
+}
+
+export interface Props {
+    project: IProject;
+    index: number;
+}
+
+const props = Astro.props;
+
+function projectClasses(index: number): string {
+    const base = 'mt-4 w-full transform-gpu ease-in-out duration-300 xl:duration-500 xl:delay-0 ';
+    if (index % 2 === 1) {
+        return base + 'md:delay-600';
+    }
+    return base + 'md:delay-300';
+}
+
+const sliderId = `slider-${props.index}`;
+---
+
+<article
+    class={projectClasses(props.index)}
+    x-data={`{
+        shown: false,
+        currentSlide: 0,
+        images: ${JSON.stringify(props.project.images)},
+        title: ${JSON.stringify(props.project.title)},
+        touchStartX: 0,
+        touchEndX: 0,
+        next() {
+            this.currentSlide = (this.currentSlide + 1) % this.images.length;
+        },
+        prev() {
+            this.currentSlide = (this.currentSlide - 1 + this.images.length) % this.images.length;
+        },
+        handleTouchStart(e) {
+            this.touchStartX = e.changedTouches[0].screenX;
+        },
+        handleTouchEnd(e) {
+            this.touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe();
+        },
+        handleSwipe() {
+            const diff = this.touchStartX - this.touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    this.next();
+                } else {
+                    this.prev();
+                }
+            }
+        }
+    }`}
+    x-intersect:enter="shown = true"
+    x-bind:class="[shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']"
+>
+    <div class="mb-8">
+        <!-- Image Slider -->
+        <div
+            class="relative block overflow-hidden bg-white rounded-md"
+            @touchstart="handleTouchStart"
+            @touchend="handleTouchEnd"
+        >
+            <div class="relative overflow-hidden rounded-md aspect-video before:content-[''] before:absolute before:inset-px before:ring-1 before:ring-black/5 before:rounded-md before:z-20">
+                <template x-for="(image, idx) in images" :key="idx">
+                    <img
+                        :src="image"
+                        :alt="`${title} - slide ${idx + 1}`"
+                        class="absolute top-0 left-0 z-10 object-cover w-full h-full transition-opacity duration-500 "
+                        x-bind:class="currentSlide === idx ? 'opacity-100' : 'opacity-0'"
+                    />
+                </template>
+            </div>
+        </div>
+
+        <!-- Title with Navigation Arrows -->
+        <div class="relative">
+            <div class="mt-4 mb-2 sm:mx-8 3xl:mx-12 flex items-center gap-3">
+                <h2 class="inline font-semibold tracking-tight text-gray-900 sm:text-xl lg:text-2xl">
+                    {props.project.title}
+                </h2>
+
+                <!-- Slider Navigation -->
+                <div class="flex items-center gap-2">
+                    <!-- <button
+                        @click="prev()"
+                        class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition-colors"
+                        aria-label="Previous slide"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button> -->
+
+                    <!-- Slide Indicators -->
+                    <div class="flex">
+                        <template x-for="(image, idx) in images" :key="idx">
+                            <button
+                                @click="currentSlide = idx"
+                                class="py-2 px-1 flex items-center justify-center cursor-pointer"
+                                :aria-label="`Go to slide ${idx + 1}`"
+                            >
+                              <span
+                                x-bind:class="currentSlide === idx ? 'bg-linear-to-tr from-blue-600 to-green-400' : 'bg-gray-100 hover:bg-gray-300'"
+                                class="w-8 h-1 rounded block"
+                              >
+                              </span>
+                            </button>
+                        </template>
+                    </div>
+
+                    <!-- <button
+                        @click="next()"
+                        class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-600 transition-colors"
+                        aria-label="Next slide"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button> -->
+                </div>
+            </div>
+
+            <!-- Description and Categories -->
+            <div class="sm:px-4 text-sm text-gray-600 sm:px-8 3xl:px-12 3xl:pb-4 lg:text-base">
+                <p class="pb-2">{props.project.description}</p>
+                {props.project.categories.map((item) => (
+                    <div class="inline-flex items-center mr-4 font-normal leading-6 text-gray-400 uppercase sm:mr-8 text-[0.625rem] flex-nowrap sm:py-1 lg:text-xs">
+                        <span class="w-3 h-3 mr-1 wave sm:mr-2"></span> {item}
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</article>

@@ -1,53 +1,57 @@
 ---
-import MProject from '../components/molecules/m_project.astro'
-const data = Astro.fetchContent('../md/projekty/*.md').sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+import MProjectSlider from '../components/molecules/m_project_slider.astro'
+import MSectionHeading from '../components/molecules/m_section_heading.astro';
+
+interface IProject {
+    title: string;
+    description: string;
+    images: string[];
+    categories: string[];
+}
+
+const projects: IProject[] = [
+    {
+        title: 'Recruitis.io',
+        description: 'Moderní ATS systém pro efektivní řízení náborových procesů. Centralizovaná správa kandidátů, plánování pohovorů s integrací kalendářů a měření kandidátské zkušenosti. GDPR compliant s kompletní mobilní aplikací.',
+        images: ['/recruitis-1.webp', '/recruitis-2.webp', '/recruitis-3.webp'],
+        categories: ['SaaS', 'Design System', 'Vue.js']
+    },
+    {
+        title: 'Lékárna.cz',
+        description: 'První internetová lékárna v ČR. E-commerce platforma s více než 30 000 produkty a online farmaceutickou podporou. Komplexní poradenský servis dostupný 7 dní v týdnu přes web, mobilní aplikaci i telefon.',
+        images: ['/lekarna-1.webp', '/lekarna-2.webp', '/lekarna-3.webp'],
+        categories: ['E-commerce', 'UX Design', 'Mobile App']
+    },
+    {
+        title: 'Floweye',
+        description: 'Platforma pro řízení podnikových procesů a workflow management. Customizace agend od správy úkolů po řízení dovolených. Cloud-based řešení s okamžitým nasazením a přístupem odkudkoliv.',
+        images: ['/floweye-1.webp', '/floweye-2.webp', '/floweye-3.webp'],
+        categories: ['SaaS', 'Low-code', 'Dashboard']
+    }
+];
 ---
-<div class="relative z-20 ">
+
+<div class="relative z-20 floating-section" style="--section-bg: white;">
     <div
-        class="relative min-h-screen px-4 pt-8 bg-white transform-gpu smt-12 sm:smt-16 sm:px-16 sm:pt-16 md:pt-24"
+        class="relative min-h-screen px-4 pt-16 bg-white transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
         id="projekty"
-        x-data={'{shown : false }'}
+        x-data="{shown: false}"
+        data-header-section="white"
     >
-        <div
-            class="absolute left-0 w-full pointer-events-none -top-16 sm:-top-20"
-            x-intersect:leave="header = 'white'; content = 'hidden'; animateContent = false;"
-            x-intersect:enter="header = 'default'; content = 'visible'"
-        >
-        </div>
-        <div
-            class="absolute left-0 w-full pointer-events-none bottom-24"
-            x-intersect:enter="header = 'white'"
-        >
-        </div>
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
-            <div
-                class="w-full transition-opacity duration-500 ease-in-out delay-300 xl:w-1/3 xl:sticky xl:top-40 xl:pb-24"
-                x-bind:class={"[shown ? 'opacity-100' : 'opacity-0']"}
-            >
-                <h2
-                    class="relative block mb-4 overflow-hidden text-xl font-bold text-gray-900 uppercase transform sm:text-3xl lg:text-5xl xl:text-6xl sm:mb-8"
-                >
-                    <span
-                        class="relative z-10 block px-4 py-2 transition-transform duration-500 ease-in-out delay-300 sm:px-8 sm:-mx-8 2xl:px-16 2xl:-mx-16"
-                        x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
-                    >
-                        Projekty
-                    </span>
-                </h2>
-                <div class="px-4 mb-8 overflow-hidden text-lg text-gray-600 lg:text-xl sm:px-0">
-                    <p
-                        class="leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform"
-                        x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
-                    >
-                        Některé pouze navrhuji, některé i kóduji. O technologiích, které používám se dočtete v sekci <a href="#sluzby" class="inline-block text-transparent border-b border-blue-500 bg-gradient-to-tr from-blue-600 to-green-400 bg-clip-text hover:border-b-transparent">služby</a>. Z pohledu čísel, mám za sebou stovky navržených webů a eshopů, 13let je pro mně práce koníčkem.
-                    </p>
-                </div>
-            </div>
+            <MSectionHeading
+                title="Projekty"
+                description="Dlouhodobé spolupráce, kde jsem mohl dělat produktový design, iterativně a systematicky vytvářet design systémy a vylepšovat produkty."
+                theme="light"
+                showButton={true}
+                buttonText="Napište mi"
+                buttonHref="#kontakt"
+            />
             <section
-                class="flex flex-wrap items-stretch pb-4 overflow-hidden sm:-mx-8 md:-mx-12 xl:w-2/3 xl:mx-0 xl:pl-24"
+                class="flex flex-col pb-4 overflow-hidden xl:w-2/3 xl:mx-0 xl:pl-24"
             >
-                {data.slice(0, 6).map((project, index) => (
-                    <MProject project={project} index={index} />
+                {projects.map((project, index) => (
+                    <MProjectSlider project={project} index={index} />
                 ))}
             </section>
         </div>

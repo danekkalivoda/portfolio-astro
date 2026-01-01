@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "astro dev",
+    "start": "astro dev --host",
     "build": "astro build"
   },
   "repository": {
@@ -19,11 +19,12 @@
   },
   "homepage": "https://github.com/danekkalivoda/portfolio-astro#readme",
   "devDependencies": {
-    "@alpinejs/intersect": "^3.2.4",
-    "alpinejs": "^3.4.2",
-    "tailwindcss": "^2.2.7"
+    "@alpinejs/intersect": "^3.15.2",
+    "alpinejs": "^3.15.2",
+    "tailwindcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.17"
   },
   "dependencies": {
-    "astro": "0.20.12"
+    "astro": "5.16.4"
   }
 }

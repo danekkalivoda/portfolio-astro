@@ -1,0 +1,63 @@
+---
+import MTestimonial from '../components/molecules/m_testimonial.astro'
+import MSectionHeading from '../components/molecules/m_section_heading.astro';
+
+type Testimonial = {
+    name: string;
+    role?: string;
+    company: string;
+    quote: string;
+}
+
+const testimonials: Testimonial[] = [
+    {
+        name: 'Michal David',
+        role: 'vedoucí pracovní skupin SW',
+        company: 'ISP Alliance a.s.',
+        quote: 'Dan má tah na bránu a evidentně ho baví to, co dělá. Než něco navrhne, tak poslouchá a ptá se. Kdo to bude používat, jak to bude používat, co je nejdůležitější z toho co ukazujeme uživateli, atd. Nikdy nám nevnucuje to, kde máme nějaké pochybnosti. Je velmi empatický, ale nenechá se vtlačit do žádné "čuňárny". S námi spolupracuje na poměrně komplexním a netradičním projektu, kde musí dát dohromady skládačku z mnoha nesourodých designových komponent, které si konečný uživatel poskladá dle své vůle a pořád to musí vypadat k světu. On to prostě umí, navrhuje velmi moderní a čisté věci. Je velmi rychlý a používá velmi dobré vybavení. K našemu projektu přišel až na poslední třetinu, což je mi velmi líto, protože kdyby s námi byl od začátku, tak nám ušetřil spoustu peněz a času. S Danem bude spokojený každý, kdo nehledá žádný kompromis v oblasti kvality.'
+    },
+    {
+        name: 'Milan "Felix" Šulc',
+        company: 'f3l1x.io',
+        quote: 'Mám radost, když mohu s Dankem spolupracovat na zajímavých projektech.'
+    },
+    {
+        name: 'Monika Dostálková',
+        role: 'PR manažer',
+        company: 'netpromotion group s.r.o.',
+        quote: 'Pravidelná dlouholetá spolupráce bez výhrad. Ze své pozice oceňuji rychlou a kvalitní práci bez zbytečných otázek dodanou v náročných termínech. Ochotu poslouchat, přizpůsobit se na poslední chvíli změnám zadání a byť na dálku a on-line, vypadá to, že s úsměvem :-).'
+    }
+];
+---
+
+<div class="relative z-20 floating-section" style="--section-bg: white;">
+    <div
+        class="relative min-h-screen px-4 py-16 bg-white transform-gpu sm:px-16 sm:py-28 xl:py-32 floating-section__inner"
+        id="klienti"
+        x-data={'{shown : false }'}
+        data-header-section="white"
+    >
+        <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
+            <MSectionHeading
+                title="Klienti"
+                description="Co o mě říkají klienti, se kterými jsem v minulých letech spolupracoval?"
+                theme="light"
+                showButton={true}
+                buttonText="Napište mi"
+            />
+            <section
+                class="flex flex-col pb-4 overflow-hidden xl:w-2/3 xl:mx-0 xl:pl-24 -mx-4 sm:ml-10"
+            >
+                {testimonials.map((testimonial, index) => (
+                    <MTestimonial
+                        name={testimonial.name}
+                        role={testimonial.role}
+                        company={testimonial.company}
+                        quote={testimonial.quote}
+                        index={index}
+                    />
+                ))}
+            </section>
+        </div>
+    </div>
+</div>

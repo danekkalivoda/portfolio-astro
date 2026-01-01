@@ -1,89 +1,455 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  @font-face {
-    font-family: "General Sans";
-    src: url("../fonts/GeneralSans-Regular.woff2") format("woff2"),
-      url("../fonts/GeneralSans-Regular.woff") format("woff"),
-      url("../fonts/GeneralSans-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-display: swap;
-    font-style: normal;
+@source "../../**/*.{astro,html,js,jsx,ts,tsx,vue,svelte,md,mdx}";
+
+@theme {
+  --font-sans: "General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  --breakpoint-xs: 414px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-4xl: 2560px;
+  --breakpoint-can-hover: (hover: hover);
+  --breakpoint-touch: (hover: none);
+
+  --color-vestra: #2ec8dc;
+  --color-man: #43a3c7;
+  --color-woman: #db2777;
+  --color-dead: #2e2e2e;
+  --color-info: var(--color-sky-600);
+  --color-danger: var(--color-red-600);
+  --color-success: var(--color-green-600);
+  --color-dark: var(--color-gray-600);
+
+  --spacing-22: 5.5rem;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/GeneralSans-Regular.woff2") format("woff2"), url("../fonts/GeneralSans-Regular.woff") format("woff"),
+    url("../fonts/GeneralSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/GeneralSans-Medium.woff2") format("woff2"), url("../fonts/GeneralSans-Medium.woff") format("woff"),
+    url("../fonts/GeneralSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/GeneralSans-Semibold.woff2") format("woff2"), url("../fonts/GeneralSans-Semibold.woff") format("woff"),
+    url("../fonts/GeneralSans-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../fonts/GeneralSans-Bold.woff2") format("woff2"), url("../fonts/GeneralSans-Bold.woff") format("woff"),
+    url("../fonts/GeneralSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Brand colors as CSS custom properties for inline styles */
+:root {
+  --color-vestra: #2ec8dc;
+  --color-man: #43a3c7;
+  --color-woman: #db2777;
+  --color-dead: #2e2e2e;
+  --app-height: 100lvh;
+}
+
+html {
+  scroll-behavior: smooth;
+  @apply bg-gray-900;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: -webkit-fill-available;
+  min-height: var(--app-height);
+  @apply bg-gray-900 text-gray-400;
+}
+
+.wave {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Eline-chart%3C/title%3E%3Cg stroke-width='1' fill='none' stroke='%230EA5E9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='0.5 8.5 4.5 4.5 7.5 7.5 11.5 3.5'%3E%3C/polyline%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  @apply inline-flex align-middle bg-center bg-no-repeat;
+}
+
+@utility smt-0 {
+  scroll-margin-top: 0;
+}
+
+@utility smt-12 {
+  scroll-margin-top: 3rem;
+}
+
+@utility smt-16 {
+  scroll-margin-top: 4rem;
+}
+
+@utility smt-20 {
+  scroll-margin-top: 5rem;
+}
+
+@utility smt-22 {
+  scroll-margin-top: 5.5rem;
+}
+
+@utility smt-24 {
+  scroll-margin-top: 6rem;
+}
+
+@utility smt-28 {
+  scroll-margin-top: 7rem;
+}
+
+@utility smt-32 {
+  scroll-margin-top: 8rem;
+}
+
+@utility smt-40 {
+  scroll-margin-top: 10rem;
+}
+
+@utility smt-48 {
+  scroll-margin-top: 12rem;
+}
+
+@utility aspect-16-10 {
+  aspect-ratio: 16 / 10;
+}
+
+/* ==========================================================================
+   Header Clipping System
+   - Single header in HTML (dark variant)
+   - JavaScript clones it with inverted colors (light variant)
+   - clip-path reveals light variant over white sections
+   ========================================================================== */
+
+.header-container {
+  position: relative;
+  z-index: 50;
+}
+
+/* Base header styling */
+.header-base {
+  will-change: clip-path;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Dark header variant (default, in HTML) */
+.header--dark {
+  @apply bg-gray-900/75 backdrop-blur;
+}
+
+.header--dark .header-logo {
+  @apply text-white;
+}
+
+.header--dark .header-menu-link {
+  @apply text-gray-600;
+  --shadow-color: white;
+}
+
+.header--dark .header-menu-link:hover,
+.header--dark .header-menu-link:focus {
+  @apply text-white;
+}
+
+.header--dark .header-menu-link.is-active {
+  @apply text-white;
+}
+
+/* Light header variant (cloned by JS) */
+.header--light {
+  @apply bg-white/75 backdrop-blur;
+  clip-path: inset(0 0 100% 0); /* Hidden by default */
+}
+
+.header--light .header-logo {
+  @apply text-gray-900;
+}
+
+.header--light .header-menu-link {
+  @apply text-gray-400;
+  --shadow-color: rgb(17 24 39);
+}
+
+.header--light .header-menu-link:hover,
+.header--light .header-menu-link:focus {
+  @apply text-gray-900;
+}
+
+.header--light .header-menu-link.is-active {
+  @apply text-gray-900;
+}
+
+/* ==========================================================================
+   Menu hover effect - text shadow slide
+   ========================================================================== */
+
+/* Menu hover effect - text shadow slide */
+.menu-link {
+  --shadow-color: currentColor;
+}
+
+.menu-link__clip {
+  display: block;
+  height: 1.5em;
+  line-height: 1.5;
+  overflow: hidden; /* Use overflow instead of clip-path to avoid coordinate system conflicts */
+}
+
+.menu-link__text {
+  display: block;
+  will-change: transform; /* Force dedicated paint layer for stable hover animation */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-shadow:
+    0 -1.5em var(--shadow-color),
+    0 1.5em var(--shadow-color);
+}
+
+.menu-link:not(.is-active):hover .menu-link__text,
+.menu-link:not(.is-active):focus .menu-link__text {
+  transform: translateY(-1.5em);
+}
+
+/* Floating Section Effect */
+.floating-section {
+  --section-bg: white;
+  position: relative;
+  /* Dark background fills the gaps when ::before is scaled down */
+  background: rgb(17 24 39);
+}
+
+/* Section background that scales */
+.floating-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--section-bg);
+  transform-origin: 50% 0%;
+  /* Fallback: full background for browsers without scroll-driven animation support */
+  transform: scale(1, 1);
+}
+
+/* Inner content stays above */
+.floating-section > .floating-section__inner {
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+
+/* Scroll-driven animation for modern browsers */
+@supports (animation-timeline: view()) {
+  .floating-section {
+    view-timeline: --section;
   }
-  @font-face {
-    font-family: "General Sans";
-    src: url("../fonts/GeneralSans-Medium.woff2") format("woff2"),
-      url("../fonts/GeneralSans-Medium.woff") format("woff"),
-      url("../fonts/GeneralSans-Medium.ttf") format("truetype");
-    font-weight: 500;
-    font-display: swap;
-    font-style: normal;
+
+  .floating-section::before {
+    /* Start scaled down - will animate to full */
+    transform: scale(0.90, 0.1);
+    animation: section-grow both ease-out;
+    animation-timeline: --section;
+    animation-range: entry 0% entry 50%;
   }
-  @font-face {
-    font-family: 'General Sans';
-    src: url('../fonts/GeneralSans-Semibold.woff2') format('woff2'),
-         url('../fonts/GeneralSans-Semibold.woff') format('woff'),
-         url('../fonts/GeneralSans-Semibold.ttf') format('truetype');
-         font-weight: 600;
-         font-display: swap;
-         font-style: normal;
-  }
-  @font-face {
-    font-family: "General Sans";
-    src: url("../fonts/GeneralSans-Bold.woff2") format("woff2"),
-      url("../fonts/GeneralSans-Bold.woff") format("woff"),
-      url("../fonts/GeneralSans-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-display: swap;
-    font-style: normal;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    @apply bg-gray-900 text-gray-400;
-  }
-  .wave {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Eline-chart%3C/title%3E%3Cg stroke-width='1' fill='none' stroke='%230EA5E9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='0.5 8.5 4.5 4.5 7.5 7.5 11.5 3.5'%3E%3C/polyline%3E%3C/g%3E%3C/svg%3E");
-    background-size: 100% 100%;
-    @apply inline-flex align-middle bg-center bg-no-repeat;
+
+  @keyframes section-grow {
+    0% {
+      transform: scale(0.90, 0.1);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
   }
 }
-@layer utilities {
-  @variants responsive {
-    .smt-0 {
-      scroll-margin-top: 0;
-    }
-    .smt-12 {
-        scroll-margin-top: 3rem;
-      }
-    .smt-16 {
-        scroll-margin-top: 4rem;
-      }
-    .smt-20 {
-      scroll-margin-top: 5rem;
-    }
-    .smt-22 {
-      scroll-margin-top: 5.5rem;
-    }
-    .smt-24 {
-      scroll-margin-top: 6rem;
-    }
-    .smt-28 {
-      scroll-margin-top: 7rem;
-    }
-    .smt-32 {
-      scroll-margin-top: 8rem;
-    }
-    .smt-40 {
-      scroll-margin-top: 10rem;
-    }
-    .smt-48 {
-      scroll-margin-top: 12rem;
-    }
+
+/* ==========================================================================
+   Floating Labels for Contact Form
+   ========================================================================== */
+
+.floating-label-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.floating-label-group--textarea {
+  margin-top: 2rem;
+}
+
+.floating-label-input {
+  width: 100%;
+  padding: 0.75rem 0 0.5rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-gray-800); /* gray-600 */
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.floating-label-input:focus {
+  border-bottom-color: var(--color-gray-400);
+}
+
+.floating-label-textarea {
+  resize: none;
+  min-height: 8rem;
+}
+
+.floating-label-select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 1.5rem;
+}
+
+.floating-label-select option {
+  background: rgb(17 24 39); /* gray-900 */
+  color: white;
+}
+
+.floating-label {
+  position: absolute;
+  left: 0;
+  top: 0.75rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: rgb(156 163 175); /* gray-400 */
+  background: var(--color-gray-900);
+  pointer-events: none;
+  transform-origin: left top;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-label-group--textarea .floating-label {
+  top: 0.75rem;
+}
+
+/* Floating state - when focused or has value (only for inputs, not selects) */
+.floating-label-group:not(.floating-label-group--select) .floating-label-input:focus ~ .floating-label,
+.floating-label-group:not(.floating-label-group--select) .floating-label-input:not(:placeholder-shown) ~ .floating-label {
+  transform: translateY(-1.5rem) scale(0.75);
+  color: var(--color-vestra);
+}
+
+/* Select specific styles */
+.floating-label-group--select .floating-label {
+  /* Default: label inside as placeholder (gray, full size) */
+  transform: none !important;
+  color: rgb(156 163 175); /* gray-400 */
+}
+
+/* Select: hide the selected text when empty (label acts as placeholder) */
+.floating-label-group--select:not(.has-value) .floating-label-select {
+  color: transparent;
+}
+
+/* Select: show white text when has value */
+.floating-label-group--select.has-value .floating-label-select {
+  color: white;
+}
+
+/* Select floating label - float up only when has value */
+.floating-label-group--select.has-value .floating-label {
+  transform: translateY(-1.5rem) scale(0.75) !important;
+  color: var(--color-vestra) !important;
+}
+
+/* ==========================================================================
+   Header Navigation Scroll with Fade Mask
+   - Horizontal scroll on small screens
+   - Fade mask on right edge
+   - Hidden scrollbar
+   ========================================================================== */
+
+.header-nav-scroll {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar across browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  /* No mask by default - masks added conditionally via data attributes */
+}
+
+/* Hide scrollbar for WebKit browsers */
+.header-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Fade mask on RIGHT edge only - can scroll right (not at end) */
+.header-nav-scroll[data-scroll-end]:not([data-scroll-start]) {
+  mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+}
+
+/* Fade mask on LEFT edge only - can scroll left (not at start) */
+.header-nav-scroll[data-scroll-start]:not([data-scroll-end]) {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2rem,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2rem,
+    black 100%
+  );
+}
+
+/* Fade mask on BOTH edges - can scroll both directions */
+.header-nav-scroll[data-scroll-start][data-scroll-end] {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2rem,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2rem,
+    black calc(100% - 2rem),
+    transparent 100%
+  );
+}
+
+/* Remove mask on larger screens where all items fit */
+@media (min-width: 640px) {
+  .header-nav-scroll {
+    overflow-x: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 }

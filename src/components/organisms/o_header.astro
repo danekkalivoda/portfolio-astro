@@ -3,13 +3,12 @@ import MMenu from "../molecules/m_menu.astro";
 import ALogo from "../atoms/a_logo.astro";
 const { homepage } = Astro.props;
 ---
-<header
-    class="fixed top-0 left-0 z-50 flex flex-row items-center w-full h-16 px-4 transition-all duration-100 ease-in-out xs:px-8 sm:px-16 sm:h-22 sm:pt-0"
-    x-bind:class="[
-        header === 'default' && 'bg-gray-900',
-        header === 'white' && 'bg-white shadow-sm'
-    ]"
->
-    <ALogo homepage={homepage}/>
-    <MMenu />
-</header>
+<div class="header-container group" data-header-clip>
+    <header
+        class="header-base header--dark fixed top-0 left-0 z-100 flex flex-row items-center w-full h-16 pl-4 sm:px-8 sm:h-22 sm:pt-0 backdrop-blur bg-gray-900/75"
+        data-header-variant="dark"
+    >
+        <ALogo homepage={homepage}/>
+        <MMenu />
+    </header>
+</div>

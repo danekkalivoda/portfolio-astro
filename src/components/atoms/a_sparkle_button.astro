@@ -1,0 +1,192 @@
+---
+interface ISparkleButtonProps {
+    href?: string;
+    text: string;
+    type?: 'button' | 'submit';
+    variant?: 'dark' | 'light';
+    disabled?: boolean;
+    xBindDisabled?: string;
+    xText?: string;
+}
+
+const props = Astro.props as ISparkleButtonProps;
+const isLink = Boolean(props.href);
+const Tag = isLink ? 'a' : 'button';
+const variant = props.variant || 'dark';
+---
+
+<div class:list={["sparkle-button", `sparkle-button--${variant}`]}>
+    <Tag
+        href={isLink ? props.href : undefined}
+        type={!isLink ? (props.type || 'button') : undefined}
+        disabled={!isLink && props.disabled ? true : undefined}
+        x-bind:disabled={props.xBindDisabled}
+        class="sparkle-button__btn"
+    >
+        <span class="sparkle-button__spark"></span>
+        <span class="sparkle-button__backdrop"></span>
+        <span class="sparkle-button__text" x-text={props.xText}>{props.text}</span>
+        <svg class="sparkle-button__arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </Tag>
+</div>
+
+<style>
+    @import "tailwindcss";
+
+    .sparkle-button {
+        --spark-duration: 2s;
+        --transition: 0.3s;
+        --radius: 4px;
+        position: relative;
+        display: inline-block;
+    }
+
+    /* ========================================
+       DARK VARIANT - for dark backgrounds
+       ======================================== */
+    .sparkle-button--dark {
+        --background-color: rgb(17 24 39);
+        --text-color: var(--color-white);
+        --background-color-hover: black;
+        --gradient-from: #3b82f6;
+        --gradient-to: #4ade80;
+        --border-color: transparent; /* gray-800 */
+        --border-color-hover: var(--color-gray-700);
+        --backdrop-bg: rgb(17 24 39);
+    }
+
+    /* ========================================
+       LIGHT VARIANT - for white/light backgrounds
+       ======================================== */
+    .sparkle-button--light {
+        --background-color: white;
+        --text-color: var(--color-gray-900);
+        --background-color-hover: var(--color-gray-100);
+        --gradient-from: var(--color-blue-500);
+        --gradient-to: var(--color-green-300);
+        --border-color: transparent; /* gray-300 */
+        --border-color-hover: var(--color-gray-300); /* gray-900 */
+        --backdrop-bg: white;
+    }
+
+    .sparkle-button__btn {
+        @apply text-lg font-semibold px-5 py-2;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        margin: 1px;
+        gap: 0.5em;
+        background: var(--background-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: transform var(--transition);
+        text-decoration: none;
+    }
+    .sparkle-button__btn:hover {
+        /* border-color: var(--border-color-hover); */
+    }
+    .sparkle-button__btn:active {
+        transform: scale(0.98);
+    }
+
+    .sparkle-button__btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .sparkle-button__btn:disabled .sparkle-button__spark {
+        display: none;
+    }
+
+    /* Rotating spark line effect - full rotation around button */
+    .sparkle-button__spark {
+        position: absolute;
+        inset: -2px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+    }
+
+    .sparkle-button__btn:hover .sparkle-button__spark,
+    .sparkle-button__btn:focus-visible .sparkle-button__spark {
+        opacity: 1;
+        transition: opacity 0.15s ease-in;
+    }
+
+    .sparkle-button__spark::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        aspect-ratio: 1;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        will-change: transform;
+        /* Gradient spark with blue-green colors matching text */
+        background: conic-gradient(
+            from 0deg,
+            transparent 100deg,
+            var(--gradient-from) 150deg,
+            var(--gradient-to) 360deg
+        );
+        animation: spark-rotate var(--spark-duration) linear infinite;
+    }
+
+    /* Light variant: no white tip, ends with green */
+    .sparkle-button--light .sparkle-button__spark::before {
+        background: conic-gradient(
+            from 0deg,
+            transparent 100deg,
+            var(--gradient-from) 150deg,
+            var(--gradient-to) 360deg
+        );
+    }
+
+    @keyframes spark-rotate {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Backdrop to cover the spark inside the button */
+    .sparkle-button__backdrop {
+        position: absolute;
+        inset: 0;
+        background: var(--backdrop-bg);
+        border-radius: calc(var(--radius) - 2px);
+        pointer-events: none;
+    }
+
+    /* Text with gradient */
+    .sparkle-button__text {
+        position: relative;
+        z-index: 1;
+        color: var(--text-color);
+        /* background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+        -webkit-background-clip: text;
+        background-clip: text; */
+        /* color: transparent; */
+    }
+
+    /* Arrow icon */
+    .sparkle-button__arrow {
+        position: relative;
+        z-index: 1;
+        width: 1.1em;
+        height: 1.1em;
+        color: var(--text-color);
+        transition: all var(--transition);
+        flex-shrink: 0;
+    }
+
+    .sparkle-button__btn:hover .sparkle-button__arrow,
+    .sparkle-button__btn:focus-visible .sparkle-button__arrow {
+        transform: translateX(4px);
+        color: var(--gradient-from);
+    }
+</style>

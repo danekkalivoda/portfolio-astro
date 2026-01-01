@@ -2,19 +2,37 @@
 export interface Props {
   homepage: boolean;
 }
-const { homepage } = Astro.props;
+const props = Astro.props;
 ---
 <a
-    href={homepage ? '/#top' : '/'}
-    x-bind:class="[header === 'white' ? 'text-gray-900' : 'text-white']"
-    class="flex items-center justify-center w-auto 3xl:ml-2"
+    href={props.homepage ? '/#top' : '/'}
+    class="header-logo flex shrink-0 items-center justify-center w-auto 3xl:ml-2"
 >
-    <div class="flex-shrink-0 mr-4 overflow-hidden rounded-full">
-        <img src="/danek.jpg" width="1120" height="880" class="object-cover w-8 h-8 overflow-hidden rounded-full sm:w-12 sm:h-12">
+    <!-- Avatar - slides in when scrolled past hero -->
+    <div class="
+        shrink-0 size-6 sm:size-10 overflow-hidden rounded-full
+        transition-all duration-150 ease-out
+        opacity-0 scale-75
+        mr-3
+        group-data-show-avatar:opacity-100
+        group-data-show-avatar:scale-100
+        group-data-show-avatar:translate-x-0
+    ">
+        <img
+            src="/Daniel_Kalivoda.webp"
+            width="140"
+            height="140"
+            alt="Daniel Kalivoda"
+            class="object-cover size-6 sm:size-10 rounded-full"
+        >
     </div>
-    <h1
-        class="flex-shrink-0 mr-4 font-medium tracking-tighter uppercase sr-only sm:not-sr-only"
-    >
+    <!-- Title - shifts when avatar appears -->
+    <h1 class="
+        shrink-0 mr-4 font-semibold text-sm md:text-base lg:text-lg tracking-tighter uppercase
+        transition-transform duration-300 ease-out
+        -translate-x-9 sm:-translate-x-15
+        group-data-show-avatar:translate-x-0
+    ">
         Dan Kalivoda
     </h1>
 </a>

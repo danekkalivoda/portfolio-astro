@@ -51,11 +51,14 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     x-on:submit.prevent="
                         submitting = true;
                         error = null;
-                        const action = $el.getAttribute('action') || '/';
-                        fetch(action, {
+                        const formData = new FormData($el);
+                        if (!formData.has('form-name')) {
+                            formData.append('form-name', $el.getAttribute('name') || 'contact');
+                        }
+                        fetch('/', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams(new FormData($el)).toString()
+                            body: new URLSearchParams(formData).toString()
                         })
                         .then(response => {
                             if (response.ok) {

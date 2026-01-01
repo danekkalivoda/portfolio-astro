@@ -6,3 +6,5 @@ dist
 # Auto Claude data directory
 .auto-claude/
 .worktrees
+.DS_Store
+.DS_Store

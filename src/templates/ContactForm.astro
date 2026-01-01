@@ -13,7 +13,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
                 title="Kontakt"
-                description="LEAVE YOUR MESSAGE. I would love to hear about your project. Let's work together."
+                description="Napište mi. Rád se dozvím o vašem projektu. Pojďme spolupracovat."
                 theme="dark"
             >
                 <div
@@ -21,11 +21,11 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
                 >
                     <div>
-                        <div class="text-xs uppercase text-gray-400 mb-1">ADDRESS</div>
+                        <div class="text-xs uppercase text-gray-400 mb-1">ADRESA</div>
                         <div class="text-white">Pardubice, Česká republika</div>
                     </div>
                     <div>
-                        <div class="text-xs text-gray-400 mb-1">EMAIL</div>
+                        <div class="text-xs text-gray-400 mb-1">E-MAIL</div>
                         <a
                             href="mailto:danek.kalivoda@gmail.com"
                             class="text-lg text-white hover:text-blue-400 transition-colors"
@@ -55,7 +55,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             class="floating-label-input"
                         />
                         <label for="name" class="floating-label">
-                            NAME <span class="text-red-500">*</span>
+                            JMÉNO <span class="text-red-500">*</span>
                         </label>
                     </div>
                     <div class="floating-label-group">
@@ -68,7 +68,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             class="floating-label-input"
                         />
                         <label for="email" class="floating-label">
-                            EMAIL <span class="text-red-500">*</span>
+                            E-MAIL <span class="text-red-500">*</span>
                         </label>
                     </div>
                     <div class="floating-label-group">
@@ -80,7 +80,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             class="floating-label-input"
                         />
                         <label for="phone" class="floating-label">
-                            PHONE
+                            TELEFON
                         </label>
                     </div>
                     <div
@@ -104,7 +104,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             <option value="other">Jiné</option>
                         </select>
                         <label for="service" class="floating-label">
-                            SERVICE INTERESTED IN <span class="text-red-500">*</span>
+                            JAKOU SLUŽBU POTŘEBUJETE <span class="text-red-500">*</span>
                         </label>
                         <div class="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,17 +122,17 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                             class="floating-label-input floating-label-textarea"
                         ></textarea>
                         <label for="requirements" class="floating-label">
-                            DESCRIBE YOUR REQUIREMENTS <span class="text-red-500">*</span>
+                            POPIŠTE VÁŠ PROJEKT <span class="text-red-500">*</span>
                         </label>
                     </div>
                     <div>
                         <ASparkleButton
                             type="submit"
-                            text="SUBMIT NOW"
+                            text="ODESLAT"
                             variant="dark"
                             disabled={true}
                             xBindDisabled="submitting"
-                            xText="submitting ? 'Odesílám...' : 'SUBMIT NOW'"
+                            xText="submitting ? 'Odesílám...' : 'ODESLAT'"
                         />
                     </div>
                 </form>

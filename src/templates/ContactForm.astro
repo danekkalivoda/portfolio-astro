@@ -39,7 +39,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                 </div>
             </MSectionHeading>
             <div
-                class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0 pl-9"
+                class="w-full xl:w-2/3 xl:pl-24 mt-4 xl:mt-0 pl-9"
             >
                 <form
                     name="contact"
@@ -109,7 +109,6 @@ import OFooter from '../components/organisms/o_footer.astro'
                         <select
                             id="service"
                             name="service"
-                            required
                             class="floating-label-input floating-label-select"
                             @change="updateServiceValue($event)"
                         >
@@ -122,7 +121,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                             <option value="other">Jiné</option>
                         </select>
                         <label for="service" class="floating-label">
-                            JAKOU SLUŽBU POTŘEBUJETE <span class="text-red-500">*</span>
+                            JAKOU SLUŽBU POTŘEBUJETE
                         </label>
                         <div class="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,13 +133,12 @@ import OFooter from '../components/organisms/o_footer.astro'
                         <textarea
                             id="requirements"
                             name="requirements"
-                            required
                             rows="6"
                             placeholder=" "
                             class="floating-label-input floating-label-textarea"
                         ></textarea>
                         <label for="requirements" class="floating-label">
-                            POPIŠTE VÁŠ PROJEKT <span class="text-red-500">*</span>
+                            POPIŠTE VÁŠ PROJEKT
                         </label>
                     </div>
                     <!-- Error message (shown when submission fails) -->
@@ -150,7 +148,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                         class="p-4 rounded-lg bg-red-900/30 border border-red-500/50"
                     >
                         <div class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                             <div>
@@ -176,30 +174,23 @@ import OFooter from '../components/organisms/o_footer.astro'
                 <div
                     x-show="success"
                     x-cloak
-                    class="text-center py-12"
+                    class="text-center p-8 ring-1 ring-white/5 rounded-lg xl:mt-4"
                 >
-                    <div class="mb-8">
-                        <svg class="w-20 h-20 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
+                    <div class="mb-4">
+                      <svg class="size-8 lg:size-10 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                    <h2 class="text-xl lg:text-2xl font-bold text-white mb-1">
                         Zpráva odeslána
                     </h2>
-                    <p class="text-lg text-gray-400 mb-8">
+                    <p class="text-sm lg:text-base text-gray-400 mb-4">
                         Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <button
-                            type="button"
-                            class="inline-flex items-center gap-2 px-5 py-2 text-lg font-semibold text-white bg-gray-800 border border-gray-700 rounded hover:bg-gray-700 transition-colors"
-                            @click="resetForm()"
-                        >
-                            Odeslat další zprávu
-                        </button>
+                    <div class="-ml-5" @click="resetForm()">
                         <ASparkleButton
-                            href="/"
-                            text="Zpět na úvodní stránku"
+                            type="button"
+                            text="Odeslat další zprávu"
                             variant="dark"
                         />
                     </div>

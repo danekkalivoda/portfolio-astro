@@ -7,7 +7,8 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
     <div
         class="relative min-h-screen px-4 pt-16 transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
         id="kontakt"
-        x-data={'{shown : false }'}
+        x-data="contactForm()"
+        x-intersect:enter.once="onIntersect()"
         data-header-section="default"
     >
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
@@ -37,7 +38,6 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
             </MSectionHeading>
             <div
                 class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"
-                x-data="{ submitting: false, success: false, error: null, showForm: true }"
             >
                 <form
                     name="contact"
@@ -48,33 +48,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     class="space-y-12"
                     x-ref="contactForm"
                     x-show="showForm"
-                    x-on:submit.prevent="
-                        submitting = true;
-                        error = null;
-                        const formData = new FormData($el);
-                        if (!formData.has('form-name')) {
-                            formData.append('form-name', $el.getAttribute('name') || 'contact');
-                        }
-                        fetch('/', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams(formData).toString()
-                        })
-                        .then(response => {
-                            if (response.ok) {
-                                success = true;
-                                showForm = false;
-                            } else {
-                                throw new Error('Submission failed');
-                            }
-                        })
-                        .catch(err => {
-                            error = 'Při odesílání zprávy došlo k chybě. Zkuste to prosím znovu.';
-                        })
-                        .finally(() => {
-                            submitting = false;
-                        });
-                    "
+                    @submit.prevent="submitForm($refs.contactForm)"
                 >
                     <!-- Hidden form-name field required for Astro/JS-rendered forms -->
                     <input type="hidden" name="form-name" value="contact" />
@@ -127,16 +101,15 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     </div>
                     <div
                         class="floating-label-group floating-label-group--select"
-                        x-data="{ hasValue: false }"
-                        x-bind:class="{ 'has-value': hasValue }"
-                        x-on:reset-select.window="hasValue = false"
+                        x-bind:class="{ 'has-value': hasServiceValue }"
+                        @reset-select.window="hasServiceValue = false"
                     >
                         <select
                             id="service"
                             name="service"
                             required
                             class="floating-label-input floating-label-select"
-                            x-on:change="hasValue = $event.target.value !== ''"
+                            @change="updateServiceValue($event)"
                         >
                             <option value="" selected>Vyberte službu</option>
                             <option value="web-design">Web Design</option>
@@ -218,12 +191,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                         <button
                             type="button"
                             class="inline-flex items-center gap-2 px-5 py-2 text-lg font-semibold text-white bg-gray-800 border border-gray-700 rounded hover:bg-gray-700 transition-colors"
-                            x-on:click="
-                                success = false;
-                                showForm = true;
-                                $refs.contactForm.reset();
-                                window.dispatchEvent(new CustomEvent('reset-select'));
-                            "
+                            @click="resetForm()"
                         >
                             Odeslat další zprávu
                         </button>

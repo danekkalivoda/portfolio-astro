@@ -12,191 +12,193 @@ import OFooter from '../components/organisms/o_footer.astro'
         x-intersect:enter.once="onIntersect()"
         data-header-section="default"
     >
-        <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
-            <MSectionHeading
-                title="Kontakt"
-                subtitle="Rád se na to podívám."
-                description="Rád si poslechnu, na čem pracujete. Nezávazně, rovnou k věci a bez zbytečné omáčky. Rychle poznáme, jestli si máme co nabídnout."
-                theme="dark"
-            >
-                <div
-                    class="transition-transform duration-500 ease-in-out delay-300 transform space-y-4 mt-8 pl-9 mb-8 sm:mb-14 xl:mb-16 xl:pl-5"
-                    x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
-                >
-                    <div>
-                        <div class="text-xs uppercase text-gray-400 mb-1">ADRESA</div>
-                        <div class="text-sm sm:text-base lg:text-lg text-white">Pardubice, Česká republika</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-400 mb-1">E-MAIL</div>
-                        <a
-                            href="mailto:danek.kalivoda@gmail.com"
-                            class="text-sm sm:text-base lg:text-lg text-white hover:text-blue-400 transition-colors"
-                        >
-                            danek.kalivoda@gmail.com
-                        </a>
-                    </div>
-                </div>
-            </MSectionHeading>
-            <div
-                class="w-full xl:w-2/3 xl:pl-24 mt-4 xl:mt-0 pl-9"
-            >
-                <form
-                    name="contact"
-                    method="POST"
-                    action="/success/"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
-                    class="space-y-8"
-                    x-ref="contactForm"
-                    x-show="showForm"
-                    @submit.prevent="submitForm($refs.contactForm)"
-                >
-                    <!-- Hidden form-name field required for Astro/JS-rendered forms -->
-                    <input type="hidden" name="form-name" value="contact" />
+        <div class="w-full grow flex flex-col sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
+            <div class="contents xl:flex xl:items-start xl:grow">
+              <MSectionHeading
+                  title="Kontakt"
+                  subtitle="Rád se na to podívám."
+                  description="Rád si poslechnu, na čem pracujete. Nezávazně, rovnou k věci a bez zbytečné omáčky. Rychle poznáme, jestli si máme co nabídnout."
+                  theme="dark"
+              >
+                  <div
+                      class="transition-transform duration-500 ease-in-out delay-300 transform space-y-4 mt-8 pl-9 mb-8 sm:mb-14 xl:mb-16 xl:pl-5"
+                      x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
+                  >
+                      <div>
+                          <div class="text-xs uppercase text-gray-400 mb-1">ADRESA</div>
+                          <div class="text-sm sm:text-base lg:text-lg text-white">Pardubice, Česká republika</div>
+                      </div>
+                      <div>
+                          <div class="text-xs text-gray-400 mb-1">E-MAIL</div>
+                          <a
+                              href="mailto:danek.kalivoda@gmail.com"
+                              class="text-sm sm:text-base lg:text-lg text-white hover:text-blue-400 transition-colors"
+                          >
+                              danek.kalivoda@gmail.com
+                          </a>
+                      </div>
+                  </div>
+              </MSectionHeading>
+              <div
+                  class="w-full xl:w-2/3 xl:pl-24 mt-4 xl:mt-0 pl-9 sm:px-9 xl:pr-0"
+              >
+                  <form
+                      name="contact"
+                      method="POST"
+                      action="/success/"
+                      data-netlify="true"
+                      data-netlify-honeypot="bot-field"
+                      class="space-y-8"
+                      x-ref="contactForm"
+                      x-show="showForm"
+                      @submit.prevent="submitForm($refs.contactForm)"
+                  >
+                      <!-- Hidden form-name field required for Astro/JS-rendered forms -->
+                      <input type="hidden" name="form-name" value="contact" />
 
-                    <!-- Honeypot field for spam protection (hidden from users) -->
-                    <p class="hidden">
-                        <label>
-                            Don't fill this out if you're human:
-                            <input name="bot-field" />
-                        </label>
-                    </p>
+                      <!-- Honeypot field for spam protection (hidden from users) -->
+                      <p class="hidden">
+                          <label>
+                              Don't fill this out if you're human:
+                              <input name="bot-field" />
+                          </label>
+                      </p>
 
-                    <div class="floating-label-group">
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            required
-                            placeholder=" "
-                            class="floating-label-input"
-                        />
-                        <label for="name" class="floating-label">
-                            JMÉNO <span class="text-red-500">*</span>
-                        </label>
-                    </div>
-                    <div class="floating-label-group">
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                            placeholder=" "
-                            class="floating-label-input"
-                        />
-                        <label for="email" class="floating-label">
-                            E-MAIL <span class="text-red-500">*</span>
-                        </label>
-                    </div>
-                    <div class="floating-label-group">
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            placeholder=" "
-                            class="floating-label-input"
-                        />
-                        <label for="phone" class="floating-label">
-                            TELEFON
-                        </label>
-                    </div>
-                    <div
-                        class="floating-label-group floating-label-group--select"
-                        x-bind:class="{ 'has-value': hasServiceValue }"
-                        @reset-select.window="hasServiceValue = false"
-                    >
-                        <select
-                            id="service"
-                            name="service"
-                            class="floating-label-input floating-label-select"
-                            @change="updateServiceValue($event)"
-                        >
-                            <option value="" selected>Vyberte službu</option>
-                            <option value="web-design">Web Design</option>
-                            <option value="ui-ux-design">UI/UX Design</option>
-                            <option value="frontend-development">Frontend Development</option>
-                            <option value="mobile-app">Mobilní aplikace</option>
-                            <option value="consulting">Konzultace</option>
-                            <option value="other">Jiné</option>
-                        </select>
-                        <label for="service" class="floating-label">
-                            JAKOU SLUŽBU POTŘEBUJETE
-                        </label>
-                        <div class="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="floating-label-group floating-label-group--textarea">
-                        <textarea
-                            id="requirements"
-                            name="requirements"
-                            rows="6"
-                            placeholder=" "
-                            class="floating-label-input floating-label-textarea"
-                        ></textarea>
-                        <label for="requirements" class="floating-label">
-                            POPIŠTE VÁŠ PROJEKT
-                        </label>
-                    </div>
-                    <!-- Error message (shown when submission fails) -->
-                    <div
-                        x-show="error"
-                        x-cloak
-                        class="p-4 rounded-lg bg-red-900/30 border border-red-500/50"
-                    >
-                        <div class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <div>
-                                <p class="text-red-400 font-medium" x-text="error"></p>
-                                <p class="text-red-400/70 text-sm mt-1">Zkontrolujte připojení k internetu a zkuste to znovu.</p>
-                            </div>
-                        </div>
-                    </div>
+                      <div class="floating-label-group">
+                          <input
+                              type="text"
+                              id="name"
+                              name="name"
+                              required
+                              placeholder=" "
+                              class="floating-label-input"
+                          />
+                          <label for="name" class="floating-label">
+                              JMÉNO <span class="text-red-500">*</span>
+                          </label>
+                      </div>
+                      <div class="floating-label-group">
+                          <input
+                              type="email"
+                              id="email"
+                              name="email"
+                              required
+                              placeholder=" "
+                              class="floating-label-input"
+                          />
+                          <label for="email" class="floating-label">
+                              E-MAIL <span class="text-red-500">*</span>
+                          </label>
+                      </div>
+                      <div class="floating-label-group">
+                          <input
+                              type="tel"
+                              id="phone"
+                              name="phone"
+                              placeholder=" "
+                              class="floating-label-input"
+                          />
+                          <label for="phone" class="floating-label">
+                              TELEFON
+                          </label>
+                      </div>
+                      <div
+                          class="floating-label-group floating-label-group--select"
+                          x-bind:class="{ 'has-value': hasServiceValue }"
+                          @reset-select.window="hasServiceValue = false"
+                      >
+                          <select
+                              id="service"
+                              name="service"
+                              class="floating-label-input floating-label-select"
+                              @change="updateServiceValue($event)"
+                          >
+                              <option value="" selected>Vyberte službu</option>
+                              <option value="web-design">Web Design</option>
+                              <option value="ui-ux-design">UI/UX Design</option>
+                              <option value="frontend-development">Frontend Development</option>
+                              <option value="mobile-app">Mobilní aplikace</option>
+                              <option value="consulting">Konzultace</option>
+                              <option value="other">Jiné</option>
+                          </select>
+                          <label for="service" class="floating-label">
+                              JAKOU SLUŽBU POTŘEBUJETE
+                          </label>
+                          <div class="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                              </svg>
+                          </div>
+                      </div>
+                      <div class="floating-label-group floating-label-group--textarea">
+                          <textarea
+                              id="requirements"
+                              name="requirements"
+                              rows="6"
+                              placeholder=" "
+                              class="floating-label-input floating-label-textarea"
+                          ></textarea>
+                          <label for="requirements" class="floating-label">
+                              POPIŠTE VÁŠ PROJEKT
+                          </label>
+                      </div>
+                      <!-- Error message (shown when submission fails) -->
+                      <div
+                          x-show="error"
+                          x-cloak
+                          class="p-4 rounded-lg bg-red-900/30 border border-red-500/50"
+                      >
+                          <div class="flex items-start gap-3">
+                              <svg class="w-6 h-6 text-red-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                              </svg>
+                              <div>
+                                  <p class="text-red-400 font-medium" x-text="error"></p>
+                                  <p class="text-red-400/70 text-sm mt-1">Zkontrolujte připojení k internetu a zkuste to znovu.</p>
+                              </div>
+                          </div>
+                      </div>
 
-                    <div class="-ml-5">
-                        <ASparkleButton
-                            type="submit"
-                            text="ODESLAT"
-                            variant="dark"
-                            disabled={true}
-                            xBindDisabled="submitting"
-                            xText="submitting ? 'Odesílám...' : 'ODESLAT'"
-                        />
-                    </div>
-                </form>
+                      <div class="-ml-5">
+                          <ASparkleButton
+                              type="submit"
+                              text="ODESLAT"
+                              variant="dark"
+                              disabled={true}
+                              xBindDisabled="submitting"
+                              xText="submitting ? 'Odesílám...' : 'ODESLAT'"
+                          />
+                      </div>
+                  </form>
 
-                <!-- Success message (shown after successful submission) -->
-                <div
-                    x-show="success"
-                    x-cloak
-                    class="text-center p-8 ring-1 ring-white/5 rounded-lg xl:mt-4"
-                >
-                    <div class="mb-4">
-                      <svg class="size-8 lg:size-10 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                    </div>
-                    <h2 class="text-xl lg:text-2xl font-bold text-white mb-1">
-                        Zpráva odeslána
-                    </h2>
-                    <p class="text-sm lg:text-base text-gray-400 mb-4">
-                        Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
-                    </p>
-                    <div class="-ml-5" @click="resetForm()">
-                        <ASparkleButton
-                            type="button"
-                            text="Odeslat další zprávu"
-                            variant="dark"
-                        />
-                    </div>
-                </div>
+                  <!-- Success message (shown after successful submission) -->
+                  <div
+                      x-show="success"
+                      x-cloak
+                      class="text-center p-8 ring-1 ring-white/5 rounded-lg xl:mt-4"
+                  >
+                      <div class="mb-4">
+                        <svg class="size-8 lg:size-10 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                      </div>
+                      <h2 class="text-xl lg:text-2xl font-bold text-white mb-1">
+                          Zpráva odeslána
+                      </h2>
+                      <p class="text-sm lg:text-base text-gray-400 mb-4">
+                          Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
+                      </p>
+                      <div class="-ml-5" @click="resetForm()">
+                          <ASparkleButton
+                              type="button"
+                              text="Odeslat další zprávu"
+                              variant="dark"
+                          />
+                      </div>
+                  </div>
+              </div>
             </div>
+            <OFooter />
         </div>
-        <OFooter />
     </div>
 </div>

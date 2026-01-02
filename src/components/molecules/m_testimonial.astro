@@ -11,10 +11,10 @@ const { name, role, company, quote, index } = Astro.props;
 ---
 
 <article
-    class="transform-gpu ease-in-out duration-150 ring-1 ring-black/5 m-px mx-4 rounded-md py-7 px-9 xl:mx-0"
+    class="transform-gpu ease-in-out duration-300 ring-1 ring-black/5 m-px mx-4 rounded-md py-7 px-9 xl:mx-px"
     x-data={`{ testimonial${index}Shown: false }`}
-    x-intersect:enter={`testimonial${index}Shown = true`}
-    x-intersect:leave={`testimonial${index}Shown = false`}
+    x-intersect:enter.margin.-50px={`testimonial${index}Shown = true`}
+    x-intersect:leave.margin.-10px={`testimonial${index}Shown = false`}
     x-bind:class={`[testimonial${index}Shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16']`}
 >
     <div

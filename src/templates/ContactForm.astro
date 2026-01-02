@@ -1,11 +1,12 @@
 ---
 import ASparkleButton from '../components/atoms/a_sparkle_button.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
+import OFooter from '../components/organisms/o_footer.astro'
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: rgb(17 24 39);">
     <div
-        class="relative min-h-screen px-4 pt-16 transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
+        class="relative min-h-screen flex flex-col px-4 pt-16 transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
         id="kontakt"
         x-data="contactForm()"
         x-intersect:enter.once="onIntersect()"
@@ -14,22 +15,23 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
                 title="Kontakt"
-                description="Napište mi. Rád se dozvím o vašem projektu. Pojďme spolupracovat."
+                subtitle="Rád se na to podívám."
+                description="Rád si poslechnu, na čem pracujete. Nezávazně, rovnou k věci a bez zbytečné omáčky. Rychle poznáme, jestli si máme co nabídnout."
                 theme="dark"
             >
                 <div
-                    class="transition-transform duration-500 ease-in-out delay-300 transform space-y-4 xl:pl-5 mt-8"
+                    class="transition-transform duration-500 ease-in-out delay-300 transform space-y-4 mt-8 pl-9 mb-8 sm:mb-14 xl:mb-16 xl:pl-5"
                     x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
                 >
                     <div>
                         <div class="text-xs uppercase text-gray-400 mb-1">ADRESA</div>
-                        <div class="text-white">Pardubice, Česká republika</div>
+                        <div class="text-sm sm:text-base lg:text-lg text-white">Pardubice, Česká republika</div>
                     </div>
                     <div>
                         <div class="text-xs text-gray-400 mb-1">E-MAIL</div>
                         <a
                             href="mailto:danek.kalivoda@gmail.com"
-                            class="text-lg text-white hover:text-blue-400 transition-colors"
+                            class="text-sm sm:text-base lg:text-lg text-white hover:text-blue-400 transition-colors"
                         >
                             danek.kalivoda@gmail.com
                         </a>
@@ -37,7 +39,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                 </div>
             </MSectionHeading>
             <div
-                class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"
+                class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0 pl-9"
             >
                 <form
                     name="contact"
@@ -45,7 +47,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                     action="/success/"
                     data-netlify="true"
                     data-netlify-honeypot="bot-field"
-                    class="space-y-12"
+                    class="space-y-8"
                     x-ref="contactForm"
                     x-show="showForm"
                     @submit.prevent="submitForm($refs.contactForm)"
@@ -158,7 +160,7 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                         </div>
                     </div>
 
-                    <div>
+                    <div class="-ml-5">
                         <ASparkleButton
                             type="submit"
                             text="ODESLAT"
@@ -204,5 +206,6 @@ import MSectionHeading from '../components/molecules/m_section_heading.astro';
                 </div>
             </div>
         </div>
+        <OFooter />
     </div>
 </div>

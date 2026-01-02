@@ -288,11 +288,6 @@ body {
 
 .floating-label-group {
   position: relative;
-  margin-top: 1.5rem;
-}
-
-.floating-label-group--textarea {
-  margin-top: 2rem;
 }
 
 .floating-label-input {
@@ -308,7 +303,7 @@ body {
 }
 
 .floating-label-input:focus {
-  border-bottom-color: var(--color-gray-400);
+  border-bottom-color: var(--color-vestra);
 }
 
 .floating-label-textarea {

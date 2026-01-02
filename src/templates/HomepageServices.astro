@@ -67,7 +67,8 @@ const skills: ISkill[] = [
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
                 title="Služby"
-                description="TypeScript-first přístup a vývoj komponent ve Storybooku. Stavím UI systémy s důrazem na typovou bezpečnost a znovupoužitelnost."
+                subtitle="Co vám mohu pomoci postavit."
+                description="Pomáhám firmám a týmům navrhovat a vyvíjet moderní webové aplikace – technicky čisté, vizuálně promyšlené a připravené na dlouhodobý rozvoj. Nejsem „jen vývojář“. Přemýšlím nad produktem, uživateli i tím, jak se bude aplikace vyvíjet za rok nebo za tři."
                 theme="dark"
                 bottomPadding="large"
                 showButton={true}
@@ -79,8 +80,8 @@ const skills: ISkill[] = [
             >
                 <div
                     x-data="{ skillsShown: false }"
-                    x-intersect:enter="skillsShown = true"
-                    x-intersect:leave="skillsShown = false"
+                    x-intersect:enter.margin.-30px="skillsShown = true"
+                    x-intersect:leave.margin.-30px="skillsShown = false"
                 >
                     {skills.map((skill, index) => (
                         <MSkill

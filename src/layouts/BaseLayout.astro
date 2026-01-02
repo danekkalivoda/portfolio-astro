@@ -1,6 +1,5 @@
 ---
 import OHeader from '../components/organisms/o_header.astro'
-import OFooter from '../components/organisms/o_footer.astro'
 import globalStylesUrl from '../assets/css/global.css?url'
 
 const {title, description, homepage} = Astro.props;
@@ -31,6 +30,5 @@ const {title, description, homepage} = Astro.props;
     <slot name="beforeContent"/>
     <slot />
     <slot name="afterContent"/>
-    <OFooter />
   </body>
 </html>

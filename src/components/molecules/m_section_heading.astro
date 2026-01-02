@@ -3,6 +3,7 @@ import ASparkleButton from '../atoms/a_sparkle_button.astro';
 
 interface IProps {
     title: string;
+    subtitle?: string;
     description: string;
     theme?: 'light' | 'dark';
     bottomPadding?: 'default' | 'large';
@@ -22,14 +23,24 @@ const descColor = theme === 'light' ? 'text-gray-500' : 'text-gray-400';
 const pbClass = bottomPadding === 'large' ? 'xl:pb-32' : 'xl:pb-24';
 ---
 
-<div class:list={["w-full transition-opacity duration-500 ease-in-out delay-300 xl:w-1/3 xl:sticky xl:top-32", pbClass]} x-bind:class="[shown ? 'opacity-100' : 'opacity-0']">
-    <h2 class:list={["relative block mb-4 overflow-hidden text-2xl font-bold uppercase transform sm:text-3xl lg:text-5xl xl:text-6xl sm:mb-8 pl-9 pr-4 xl:pr-0 xl:pl-5", titleColor]}>
+<div
+    x-intersect:enter.margin.-50px="shown = true" x-intersect:leave.margin.-10px="shown = false" x-data="{ shown: false }"
+    class:list={["w-full transition-opacity duration-500 ease-in-out delay-300 xl:w-1/3 xl:sticky xl:top-32", pbClass]} x-bind:class="[shown ? 'opacity-100' : 'opacity-0']"
+  >
+    <h2 class:list={["relative block mb-4 overflow-hidden text-2xl pt-2 font-bold uppercase transform sm:text-3xl lg:text-5xl xl:text-6xl sm:mb-8 pl-9 pr-4 xl:pr-0 xl:pl-5", titleColor]}>
         <span class="relative z-10 block transition-transform duration-500 ease-in-out delay-300 sm:px-8 sm:-mx-8 2xl:px-16 2xl:-mx-16" x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']">
             {props.title}
         </span>
     </h2>
+    {props.subtitle && (
+        <h3 class:list={["relative block mb-2 overflow-hidden text-base font-semibold transform text-base sm:text-lg lg:text-xl sm:mb-3  pl-9 pr-4 xl:pr-0 xl:pl-5", titleColor]}>
+            <span class="relative z-10 block transition-transform duration-500 ease-in-out delay-300 sm:px-8 sm:-mx-8 2xl:px-16 2xl:-mx-16" x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']">
+                {props.subtitle}
+            </span>
+        </h3>
+    )}
     <div class:list={["mb-8 overflow-hidden text-base sm:text-lg lg:text-xl", descColor]}>
-        <p class:list={["leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform pl-9 pr-4 xl:pr-0 xl:pl-5", { "mb-4 sm:mb-8": showButton }]} x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']" x-intersect:enter="shown = true" x-intersect:leave="shown = false">
+        <p class:list={["leading-relaxed transition-transform duration-500 ease-in-out delay-300 transform pl-9 pr-4 xl:pr-0 xl:pl-5", { "mb-4 sm:mb-8": showButton }]} x-bind:class="[shown ? 'translate-y-0' : 'translate-y-full']">
             {props.description}
         </p>
         {showButton && props.buttonText && (

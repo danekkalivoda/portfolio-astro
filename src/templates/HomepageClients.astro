@@ -11,6 +11,11 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
     {
+        name: 'Marek Feuermann',
+        company: 'Enterprise Systems s.r.o.',
+        quote: 'Dan je mimořádně silný frontend developer s jasným technologickým náskokem. Neustále sleduje vývoj v oboru a jako early adopter dokáže nové technologie velmi rychle převést do reálně použitelných řešení. Vyniká vysokou pracovní disciplínou, tahem na výsledek a ochotou převzít plnou odpovědnost za svěřené části projektu. Samostudium bere jako nedílnou součást práce a technické problémy řeší systematicky, bez hledání výmluv. Pokud hledáte vývojáře, který dlouhodobě dodává kvalitu, drží krok s technologiemi a posouvá projekt dopředu Dan je velmi silná volba.'
+    },
+    {
         name: 'Michal David',
         role: 'vedoucí pracovní skupin SW',
         company: 'ISP Alliance a.s.',
@@ -26,11 +31,6 @@ const testimonials: Testimonial[] = [
         role: 'PR manažer',
         company: 'netpromotion group s.r.o.',
         quote: 'Pravidelná dlouholetá spolupráce bez výhrad. Ze své pozice oceňuji rychlou a kvalitní práci bez zbytečných otázek dodanou v náročných termínech. Ochotu poslouchat, přizpůsobit se na poslední chvíli změnám zadání a byť na dálku a on-line, vypadá to, že s úsměvem :-).'
-    },
-    {
-        name: 'Marek Feuermann',
-        company: 'Enterprise Systems s.r.o.',
-        quote: 'Dan je mimořádně silný frontend developer s jasným technologickým náskokem. Neustále sleduje vývoj v oboru a jako early adopter dokáže nové technologie velmi rychle převést do reálně použitelných řešení. Vyniká vysokou pracovní disciplínou, tahem na výsledek a ochotou převzít plnou odpovědnost za svěřené části projektu. Samostudium bere jako nedílnou součást práce a technické problémy řeší systematicky, bez hledání výmluv. Pokud hledáte frontend vývojáře, který dlouhodobě dodává kvalitu, drží krok s technologiemi a posouvá projekt dopředu Dan je velmi silná volba.'
     }
 ];
 ---
@@ -45,7 +45,8 @@ const testimonials: Testimonial[] = [
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
                 title="Klienti"
-                description="Dlouhodobá spolupráce a kvalita dodané práce jsou pro mě na prvním místě. Přečtěte si, co o spolupráci říkají moji klienti."
+                subtitle="Spolupráce postavená na důvěře."
+                description="Spolupracuji s menšími týmy i většími firmami, kde je kladen důraz na kvalitu, stabilitu a dlouhodobý rozvoj produktu."
                 theme="light"
                 showButton={true}
                 buttonText="Napište mi"

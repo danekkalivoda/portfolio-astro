@@ -24,13 +24,12 @@ function projectClasses (index) {
 ---
 <article
     class={projectClasses(index)}
-    x-intersect:enter="shown = true"
     x-data={'{ article' + index + 'Shown : false }'}
     x-bind:class={"[article" + index + "Shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16' ]"}
 >
     <div
         class="mb-8"
-        x-intersect:enter={'article' + index + 'Shown = true'}
+        x-intersect:enter.margin.-30px={'article' + index + 'Shown = true'}
     >
         <a href="#nogo" class="block p-2 overflow-hidden bg-white border border-gray-100 rounded-md xl:p-4">
             <div class="relative overflow-hidden rounded-md aspect-16-10">

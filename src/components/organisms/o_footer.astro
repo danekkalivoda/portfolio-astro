@@ -2,12 +2,6 @@
 const currentYear = new Date().getFullYear();
 ---
 <footer class="relative py-12 mt-auto">
-    <!-- Decorative separator -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 flex items-center gap-3 opacity-30">
-        <span class="block w-12 h-px bg-gradient-to-r from-transparent to-gray-600"></span>
-        <span class="block w-1.5 h-1.5 rounded-full bg-vestra"></span>
-        <span class="block w-12 h-px bg-gradient-to-l from-transparent to-gray-600"></span>
-    </div>
 
     <div class="max-w-4xl mx-auto px-6 text-center">
         <!-- Main credits row -->
@@ -15,6 +9,18 @@ const currentYear = new Date().getFullYear();
             <span>&copy; {currentYear}</span>
             <span class="text-gray-700">/</span>
             <span>Vibe coded with</span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="inline-block w-3 h-3 text-red-500"
+                aria-hidden="true"
+            >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span> by Daniel Kalivoda. </span>
+            <span class="text-gray-700">/</span>
+            <span>Codepen demos from</span>
             <a
                 href="https://codepen.io/jh3y"
                 target="_blank"
@@ -27,11 +33,11 @@ const currentYear = new Date().getFullYear();
 
         <!-- Tech stack -->
         <div class="mt-3 flex items-center justify-center gap-1.5 text-[10px] uppercase tracking-widest text-gray-700">
-            <span class="hover:text-gray-500 transition-colors cursor-default">Astro</span>
-            <span class="text-gray-800">&middot;</span>
-            <span class="hover:text-gray-500 transition-colors cursor-default">Tailwind</span>
-            <span class="text-gray-800">&middot;</span>
-            <span class="hover:text-gray-500 transition-colors cursor-default">Alpine</span>
+            <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors cursor-pointer">Astro</a>
+            <span class="text-gray-600 text-lg">&middot;</span>
+            <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors cursor-pointer">Tailwind</a>
+            <span class="text-gray-600 text-lg">&middot;</span>
+            <a href="https://alpinejs.dev" target="_blank" rel="noopener noreferrer" class="hover:text-gray-500 transition-colors cursor-pointer">Alpine</a>
         </div>
     </div>
 </footer>

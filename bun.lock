@@ -1,14 +1,15 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "portfolio-astro",
       "dependencies": {
-        "@tailwindcss/postcss": "^4.1.17",
         "astro": "5.16.4",
       },
       "devDependencies": {
         "@alpinejs/intersect": "^3.15.2",
+        "@tailwindcss/postcss": "^4.1.17",
         "alpinejs": "^3.15.2",
         "tailwindcss": "^4.1.17",
       },

@@ -1,11 +1,11 @@
 {
   "active": true,
   "spec": "018-footer",
-  "state": "building",
+  "state": "complete",
   "subtasks": {
-    "completed": 1,
+    "completed": 2,
     "total": 2,
-    "in_progress": 1,
+    "in_progress": 0,
     "failed": 0
   },
   "phase": {
@@ -21,5 +21,5 @@
     "number": 2,
     "started_at": "2026-01-02T12:48:29.006917"
   },
-  "last_update": "2026-01-02T12:50:11.984805"
+  "last_update": "2026-01-02T12:51:25.237165"
 }

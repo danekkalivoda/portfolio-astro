@@ -1,17 +1,17 @@
 {
   "active": true,
-  "spec": "018-footer",
-  "state": "complete",
+  "spec": "019-seo-audit-md",
+  "state": "building",
   "subtasks": {
-    "completed": 2,
-    "total": 2,
-    "in_progress": 0,
+    "completed": 12,
+    "total": 13,
+    "in_progress": 1,
     "failed": 0
   },
   "phase": {
-    "current": "Implementation",
-    "id": 1,
-    "total": 2
+    "current": "Build Verification",
+    "id": null,
+    "total": 3
   },
   "workers": {
     "active": 0,
@@ -19,7 +19,7 @@
   },
   "session": {
     "number": 2,
-    "started_at": "2026-01-02T12:48:29.006917"
+    "started_at": "2026-01-02T13:36:52.163193"
   },
-  "last_update": "2026-01-02T12:51:25.237165"
+  "last_update": "2026-01-02T13:38:51.236194"
 }

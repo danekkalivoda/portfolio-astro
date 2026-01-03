@@ -1,6 +1,9 @@
 ---
+import { getAlternateUrl } from "../i18n/utils";
+import type { Locale } from "../i18n/types";
+
 interface Props {
-    currentLocale: "cs" | "en";
+    currentLocale: Locale;
     className?: string;
     mode?: "desktop" | "mobile" | "both";
     mobileVisibility?: "floating" | "hero";
@@ -19,13 +22,8 @@ const showMobile = mode !== "desktop";
 const heroOnlyMobile = mobileVisibility === "hero";
 const ariaLabel = currentLocale === "cs" ? "Přepnout jazyk" : "Switch language";
 
-// Get current path for language switching
-const currentPath = Astro.url.pathname;
-const pathWithoutLocale = currentPath.replace(/^\/(cs|en)/, "") || "/";
-
-// Generate alternate URLs
-const csUrl = currentLocale === "cs" ? currentPath : `/cs${pathWithoutLocale}`;
-const enUrl = currentLocale === "en" ? currentPath : `/en${pathWithoutLocale}`;
+const csUrl = getAlternateUrl(Astro.url, "cs");
+const enUrl = getAlternateUrl(Astro.url, "en");
 ---
 
 <div class={`language-switcher ${className}`}>

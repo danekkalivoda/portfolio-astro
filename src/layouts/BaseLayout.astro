@@ -3,7 +3,7 @@ import OHeader from "../components/organisms/o_header.astro";
 import LanguageSwitcher from "../components/LanguageSwitcher.astro";
 import globalStylesUrl from "../assets/css/global.css?url";
 import type { Locale } from "../i18n/types";
-import { locales } from "../i18n/utils";
+import { getAlternateUrl, locales } from "../i18n/utils";
 import { ViewTransitions } from "astro:transitions";
 
 interface Props {
@@ -20,10 +20,7 @@ const ogImageURL = new URL("/og-image.jpg", Astro.site);
 // Generate alternate language URLs for hreflang
 const alternateUrls = locales.map((lang) => ({
     lang,
-    url: new URL(
-        Astro.url.pathname.replace(/^\/(cs|en)/, `/${lang}`),
-        Astro.site,
-    ).href,
+    url: new URL(getAlternateUrl(Astro.url, lang), Astro.site).href,
 }));
 
 // Locale mapping for Open Graph
@@ -50,11 +47,7 @@ const ogLocaleMap: Record<Locale, string> = {
                 <link rel="alternate" hreflang={lang} href={url} />
             ))
         }
-        <link
-            rel="alternate"
-            hreflang="x-default"
-            href={new URL("/cs/", Astro.site).href}
-        />
+        <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site).href} />
 
         <!-- Open Graph -->
         <meta property="og:title" content={title} />

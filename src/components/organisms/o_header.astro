@@ -18,7 +18,7 @@ const t = getTranslations(locale);
       class="header-base header--dark fixed top-0 left-0 right-0 z-100  backdrop-blur bg-gray-900/75" data-header-variant="dark"
     >
         <div class="md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto w-full flex flex-row items-center h-16 pl-4 lg:h-22 sm:px-12 lg:px-16 xl:pl-5 xl:pr-0">
-            <ALogo homepage={homepage}/>
+            <ALogo homepage={homepage} locale={locale} />
             <MMenu navigation={t.navigation} />
             <LanguageSwitcher currentLocale={locale} className="ml-4" mode="desktop" />
         </div>

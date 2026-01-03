@@ -105,10 +105,21 @@ const initViewportHeightFix = () => {
   window.setTimeout(setAppHeight, 1000);
 };
 
+let viewportFixInitialized = false;
+
+const ensureViewportFix = () => {
+  if (viewportFixInitialized) {
+    return;
+  }
+
+  initViewportHeightFix();
+  viewportFixInitialized = true;
+};
+
 initHeader();
 initHeroAvatar();
 initContactForm();
-initViewportHeightFix();
+ensureViewportFix();
 
 Alpine.start();
 initHeaderSections();
@@ -117,6 +128,7 @@ const initPageAfterSwap = () => {
   initHeader();
   initHeroAvatar();
   initContactForm();
+  ensureViewportFix();
 
   if (window.Alpine?.initTree) {
     window.Alpine.initTree(document.body);
@@ -125,4 +137,6 @@ const initPageAfterSwap = () => {
   initHeaderSections();
 };
 
-document.addEventListener("astro:page-load", initPageAfterSwap);
+document.addEventListener("astro:after-swap", () => {
+  window.requestAnimationFrame(initPageAfterSwap);
+});

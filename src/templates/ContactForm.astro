@@ -12,7 +12,7 @@ interface Props {
 const { translations, locale } = Astro.props;
 const heading = translations.sectionHeadings.contact;
 const form = translations.contactForm;
-const successUrl = locale === 'cs' ? '/cs/success' : '/en/success';
+const successUrl = locale === 'cs' ? '/success' : '/en/success';
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: rgb(17 24 39);">

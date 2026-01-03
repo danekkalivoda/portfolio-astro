@@ -1,11 +1,18 @@
 ---
+import type { Locale } from "../../i18n/types";
+import { getLocalizedPath } from "../../i18n/utils";
+
 export interface Props {
   homepage: boolean;
+  locale?: Locale;
 }
-const props = Astro.props;
+
+const { homepage, locale = "cs" } = Astro.props;
+const homePath = getLocalizedPath("/", locale);
+const logoHref = homepage ? `${homePath}#top` : homePath;
 ---
 <a
-    href={props.homepage ? '/#top' : '/'}
+    href={logoHref}
     class="header-logo flex shrink-0 items-center justify-center w-auto"
 >
     <!-- Avatar - slides in when scrolled past hero -->

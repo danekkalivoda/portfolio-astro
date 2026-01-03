@@ -100,6 +100,15 @@ export const initHeaderSections = () => {
     return;
   }
 
+  let firstWhiteSection = null;
+  for (const section of sections) {
+    const variant = section.getAttribute("data-header-section");
+    if (variant === "white") {
+      firstWhiteSection = section;
+      break;
+    }
+  }
+
   const mobileSwitcher = document.querySelector(
     ".mobile-lang-switcher:not(.mobile-lang-switcher--light)",
   );
@@ -131,6 +140,10 @@ export const initHeaderSections = () => {
       lightMobileSwitcher = switcherClone;
     }
   }
+
+  const mobileSwitcherHeroOnly = Boolean(
+    mobileSwitcher?.hasAttribute("data-mobile-switcher-hero-only"),
+  );
 
   /**
    * Get the current header height for calculations
@@ -316,6 +329,55 @@ export const initHeaderSections = () => {
     } else {
       delete container.dataset.showAvatar;
     }
+  };
+
+  /**
+   * Toggle floating mobile language switcher visibility based on hero position
+   */
+  const setMobileSwitcherHidden = (hidden) => {
+    if (!mobileSwitcher) {
+      return;
+    }
+
+    if (hidden) {
+      mobileSwitcher.setAttribute("data-mobile-switcher-hidden", "");
+      mobileSwitcher.setAttribute("aria-hidden", "true");
+    } else {
+      mobileSwitcher.removeAttribute("data-mobile-switcher-hidden");
+      mobileSwitcher.removeAttribute("aria-hidden");
+    }
+
+    if (lightMobileSwitcher) {
+      if (hidden) {
+        lightMobileSwitcher.setAttribute("data-mobile-switcher-hidden", "");
+      } else {
+        lightMobileSwitcher.removeAttribute("data-mobile-switcher-hidden");
+      }
+    }
+  };
+
+  const updateMobileSwitcherVisibility = () => {
+    if (!mobileSwitcher || !mobileSwitcherHeroOnly) {
+      return;
+    }
+
+    if (firstWhiteSection) {
+      const whiteRect = firstWhiteSection.getBoundingClientRect();
+      const whiteIsEntering = whiteRect.top < window.innerHeight;
+      setMobileSwitcherHidden(whiteIsEntering);
+      return;
+    }
+
+    if (!heroSection) {
+      setMobileSwitcherHidden(false);
+      return;
+    }
+
+    const heroRect = heroSection.getBoundingClientRect();
+    const headerHeight = getHeaderHeight();
+    const heroIsAboveHeader = heroRect.bottom <= headerHeight;
+
+    setMobileSwitcherHidden(heroIsAboveHeader);
   };
 
   /**
@@ -682,6 +744,7 @@ export const initHeaderSections = () => {
       updateAvatarVisibility();
       updateActiveSection();
       updateNavFadeMasks();
+      updateMobileSwitcherVisibility();
       updateMobileSwitcherClip();
     });
   };
@@ -713,6 +776,7 @@ export const initHeaderSections = () => {
   updateAvatarVisibility();
   updateActiveSection();
   updateNavFadeMasks();
+  updateMobileSwitcherVisibility();
   updateMobileSwitcherClip();
 
   if (typeof window !== "undefined") {

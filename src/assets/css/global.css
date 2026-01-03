@@ -171,6 +171,12 @@ body {
     -webkit-backface-visibility: hidden;
 }
 
+.mobile-lang-switcher[data-mobile-switcher-hidden] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none !important;
+}
+
 /* Dark header variant (default, in HTML) */
 .header--dark {
     @apply bg-gray-900/75 backdrop-blur;

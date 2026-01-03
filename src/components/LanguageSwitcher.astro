@@ -3,13 +3,20 @@ interface Props {
     currentLocale: "cs" | "en";
     className?: string;
     mode?: "desktop" | "mobile" | "both";
+    mobileVisibility?: "floating" | "hero";
 }
 
-const { currentLocale, className = "", mode = "both" } = Astro.props;
+const {
+    currentLocale,
+    className = "",
+    mode = "both",
+    mobileVisibility = "floating",
+} = Astro.props;
 const isCsActive = currentLocale === "cs";
 const isEnActive = currentLocale === "en";
 const showDesktop = mode !== "mobile";
 const showMobile = mode !== "desktop";
+const heroOnlyMobile = mobileVisibility === "hero";
 const ariaLabel = currentLocale === "cs" ? "Přepnout jazyk" : "Switch language";
 
 // Get current path for language switching
@@ -63,6 +70,7 @@ const enUrl = currentLocale === "en" ? currentPath : `/en${pathWithoutLocale}`;
             <div
                 class="lg:hidden mobile-lang-switcher group fixed right-4 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-[60] inline-flex items-center gap-0 p-1 rounded-[8px] bg-gray-900/65 backdrop-blur-lg overflow-hidden transition-[background,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none border border-white/10 [&.mobile-lang-switcher--light]:bg-white/70 [&.mobile-lang-switcher--light]:border-black/5 max-[380px]:right-4 max-[380px]:bottom-[calc(1rem+env(safe-area-inset-bottom))]"
                 data-language-switcher-floating
+                data-mobile-switcher-hero-only={heroOnlyMobile ? "" : undefined}
                 role="group"
                 aria-label={ariaLabel}
             >

@@ -1,108 +1,126 @@
 ---
-import OHeader from '../components/organisms/o_header.astro'
-import LanguageSwitcher from '../components/LanguageSwitcher.astro'
-import globalStylesUrl from '../assets/css/global.css?url'
-import type { Locale } from '../i18n/types'
-import { locales } from '../i18n/utils'
-import { ViewTransitions } from 'astro:transitions'
+import OHeader from "../components/organisms/o_header.astro";
+import LanguageSwitcher from "../components/LanguageSwitcher.astro";
+import globalStylesUrl from "../assets/css/global.css?url";
+import type { Locale } from "../i18n/types";
+import { locales } from "../i18n/utils";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
-  title: string;
-  description: string;
-  homepage?: boolean;
-  locale?: Locale;
+    title: string;
+    description: string;
+    homepage?: boolean;
+    locale?: Locale;
 }
 
-const {title, description, homepage, locale = 'cs'} = Astro.props;
+const { title, description, homepage, locale = "cs" } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL('/og-image.jpg', Astro.site);
+const ogImageURL = new URL("/og-image.jpg", Astro.site);
 
 // Generate alternate language URLs for hreflang
-const alternateUrls = locales.map(lang => ({
-  lang,
-  url: new URL(Astro.url.pathname.replace(/^\/(cs|en)/, `/${lang}`), Astro.site).href
+const alternateUrls = locales.map((lang) => ({
+    lang,
+    url: new URL(
+        Astro.url.pathname.replace(/^\/(cs|en)/, `/${lang}`),
+        Astro.site,
+    ).href,
 }));
 
 // Locale mapping for Open Graph
 const ogLocaleMap: Record<Locale, string> = {
-  cs: 'cs_CZ',
-  en: 'en_US'
+    cs: "cs_CZ",
+    en: "en_US",
 };
 ---
+
 <html lang={locale}>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>{title}</title>
-    <meta name="description" content={description}>
-    <link rel="canonical" href={canonicalURL}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalURL} />
 
-    <!-- Alternate language links for SEO -->
-    {alternateUrls.map(({ lang, url }) => (
-      <link rel="alternate" hreflang={lang} href={url} />
-    ))}
-    <link rel="alternate" hreflang="x-default" href={new URL('/cs/', Astro.site).href} />
+        <!-- Alternate language links for SEO -->
+        {
+            alternateUrls.map(({ lang, url }) => (
+                <link rel="alternate" hreflang={lang} href={url} />
+            ))
+        }
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href={new URL("/cs/", Astro.site).href}
+        />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content={title}>
-    <meta property="og:description" content={description}>
-    <meta property="og:image" content={ogImageURL}>
-    <meta property="og:url" content={canonicalURL}>
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content={ogLocaleMap[locale]}>
+        <!-- Open Graph -->
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImageURL} />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content={ogLocaleMap[locale]} />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content={title}>
-    <meta name="twitter:description" content={description}>
-    <meta name="twitter:image" content={ogImageURL}>
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="/favicon-96x96.png"
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Daniel Kalivoda",
-      "jobTitle": "Front-End Engineer & UI/UX Designer",
-      "url": Astro.site?.toString() || "https://kalivoda.design",
-      "sameAs": [
-        "https://www.linkedin.com/in/daniel-kalivoda-19573116/",
-        "https://github.com/danielkalivoda"
-      ],
-      "knowsAbout": ["Vue.js", "React", "TypeScript", "UI/UX Design"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Pardubice",
-        "addressCountry": "CZ"
-      }
-    })}></script>
+        <!-- JSON-LD Structured Data -->
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Person",
+                name: "Daniel Kalivoda",
+                jobTitle: "Front-End Engineer & UI/UX Designer",
+                url: Astro.site?.toString() || "https://kalivoda.design",
+                sameAs: [
+                    "https://www.linkedin.com/in/daniel-kalivoda-19573116/",
+                    "https://github.com/danielkalivoda",
+                ],
+                knowsAbout: ["Vue.js", "React", "TypeScript", "UI/UX Design"],
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Pardubice",
+                    addressCountry: "CZ",
+                },
+            })}
+        />
 
-    <link rel="stylesheet" type="text/css" href={globalStylesUrl}>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <ViewTransitions />
-    <script>
-      import '../assets/js/global.js'
-    </script>
-  </head>
+        <link rel="stylesheet" type="text/css" href={globalStylesUrl} />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <ViewTransitions />
+        <script>
+            import "../assets/js/global.js";
+        </script>
+    </head>
 
-
-
-
-
-
-
-
-  <body x-data={"header()"} class="subpixel-antialiased">
-    <OHeader homepage={homepage} locale={locale} />
-    <LanguageSwitcher currentLocale={locale} mode="mobile" />
-    <slot name="beforeContent"/>
-    <slot />
-    <slot name="afterContent"/>
-  </body>
+    <body x-data={"header()"} class="subpixel-antialiased">
+        <OHeader homepage={homepage} locale={locale} />
+        <LanguageSwitcher
+            currentLocale={locale}
+            mode="mobile"
+            mobileVisibility="hero"
+        />
+        <slot name="beforeContent" />
+        <slot />
+        <slot name="afterContent" />
+    </body>
 </html>

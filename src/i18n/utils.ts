@@ -10,6 +10,30 @@ const translations: Record<Locale, ITranslations> = {
 export const defaultLocale: Locale = 'cs';
 export const locales: Locale[] = ['cs', 'en'];
 
+const sectionIdsByLocale: Record<Locale, {
+    projects: string;
+    services: string;
+    clients: string;
+    contact: string;
+}> = {
+    cs: {
+        projects: 'projekty',
+        services: 'sluzby',
+        clients: 'klienti',
+        contact: 'kontakt',
+    },
+    en: {
+        projects: 'projects',
+        services: 'services',
+        clients: 'clients',
+        contact: 'contact',
+    },
+};
+
+export function getSectionIds(locale: Locale): typeof sectionIdsByLocale[Locale] {
+    return sectionIdsByLocale[locale] || sectionIdsByLocale[defaultLocale];
+}
+
 /**
  * Get translations for a specific locale
  */

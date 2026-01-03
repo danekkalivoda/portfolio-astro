@@ -3,6 +3,7 @@ import ASparkleButton from '../components/atoms/a_sparkle_button.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
 import OFooter from '../components/organisms/o_footer.astro'
 import type { ITranslations, Locale } from '../i18n/types';
+import { getSectionIds } from '../i18n/utils';
 
 interface Props {
     translations: ITranslations;
@@ -13,12 +14,13 @@ const { translations, locale } = Astro.props;
 const heading = translations.sectionHeadings.contact;
 const form = translations.contactForm;
 const successUrl = locale === 'cs' ? '/success' : '/en/success';
+const sectionIds = getSectionIds(locale);
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: rgb(17 24 39);">
     <div
         class="relative min-h-screen flex flex-col px-4 pt-16 transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
-        id="kontakt"
+        id={sectionIds.contact}
         x-data="contactForm()"
         x-intersect:enter.once="onIntersect()"
         data-header-section="default"

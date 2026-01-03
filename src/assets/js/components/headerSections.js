@@ -159,14 +159,23 @@ export const initHeaderSections = () => {
 
   /**
    * Section IDs for navigation tracking
-   * These correspond to the menu links in a_menulink.astro
+   * Derived from current header links to stay locale-aware
    */
-  const navSectionIds = ["projekty", "sluzby", "klienti", "kontakt"];
   const navSections = [];
-  for (const id of navSectionIds) {
-    const element = document.getElementById(id);
+  const navLinks = darkHeader.querySelectorAll(".header-menu-link");
+  for (const link of navLinks) {
+    const href = link.getAttribute("href") || "";
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) {
+      continue;
+    }
+    const sectionId = href.slice(hashIndex + 1);
+    if (!sectionId) {
+      continue;
+    }
+    const element = document.getElementById(sectionId);
     if (element) {
-      navSections.push({ id, element });
+      navSections.push({ id: sectionId, element });
     }
   }
 

@@ -1,18 +1,20 @@
 ---
 import AMenuLink from "../atoms/a_menulink.astro";
-import type { INavigation } from "../../i18n/types";
+import type { INavigation, Locale } from "../../i18n/types";
+import { getSectionIds } from "../../i18n/utils";
 
 interface Props {
     navigation: INavigation;
+    locale: Locale;
 }
 
-const { navigation } = Astro.props;
-
+const { navigation, locale } = Astro.props;
+const sectionIds = getSectionIds(locale);
 const sectionLinks = {
-    projects: "#projekty",
-    services: "#sluzby",
-    clients: "#klienti",
-    contact: "#kontakt",
+    projects: `#${sectionIds.projects}`,
+    services: `#${sectionIds.services}`,
+    clients: `#${sectionIds.clients}`,
+    contact: `#${sectionIds.contact}`,
 };
 ---
 

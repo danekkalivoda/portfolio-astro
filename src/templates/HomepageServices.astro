@@ -2,7 +2,7 @@
 import MSkill from '../components/molecules/m_skill.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
 import type { ITranslations, Locale } from '../i18n/types';
-import { formatYears } from '../i18n/utils';
+import { formatYears, getSectionIds } from '../i18n/utils';
 
 interface Props {
     translations: ITranslations;
@@ -12,12 +12,13 @@ interface Props {
 const { translations, locale } = Astro.props;
 const skills = translations.skills;
 const heading = translations.sectionHeadings.services;
+const sectionIds = getSectionIds(locale);
 ---
 
 <div class="relative z-10 w-full floating-section" style="--section-bg: rgb(17 24 39);">
     <div
         class="relative px-4 py-16 bg-gray-900 sm:px-16 sm:py-28 xl:py-32 floating-section__inner"
-        id="sluzby"
+        id={sectionIds.services}
         x-data={'{shown : false }'}
         data-header-section="default"
     >
@@ -30,7 +31,7 @@ const heading = translations.sectionHeadings.services;
                 bottomPadding="large"
                 showButton={true}
                 buttonText={heading.buttonText}
-                buttonHref="#kontakt"
+                buttonHref={`#${sectionIds.contact}`}
             />
             <div
                 class="w-full xl:w-2/3 xl:pl-24 mt-8 xl:mt-0"

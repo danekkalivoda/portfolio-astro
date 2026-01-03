@@ -2,21 +2,23 @@
 import MProjectSlider from '../components/molecules/m_project_slider.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
 import type { ITranslations, Locale } from '../i18n/types';
+import { getSectionIds } from '../i18n/utils';
 
 interface Props {
     translations: ITranslations;
     locale: Locale;
 }
 
-const { translations } = Astro.props;
+const { translations, locale } = Astro.props;
 const projects = translations.projects;
 const heading = translations.sectionHeadings.projects;
+const sectionIds = getSectionIds(locale);
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: white;">
     <div
         class="relative min-h-screen px-4 pt-16 bg-white transform-gpu sm:px-16 sm:pt-28 xl:pt-32 floating-section__inner"
-        id="projekty"
+        id={sectionIds.projects}
         x-data="{shown: false}"
         data-header-section="white"
     >
@@ -28,7 +30,7 @@ const heading = translations.sectionHeadings.projects;
                 theme="light"
                 showButton={true}
                 buttonText={heading.buttonText}
-                buttonHref="#kontakt"
+                buttonHref={`#${sectionIds.contact}`}
             />
             <section
                 class="flex flex-col pb-4 overflow-hidden xl:w-2/3 xl:mx-0 xl:pl-24"

@@ -2,21 +2,23 @@
 import MTestimonial from '../components/molecules/m_testimonial.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
 import type { ITranslations, Locale } from '../i18n/types';
+import { getSectionIds } from '../i18n/utils';
 
 interface Props {
     translations: ITranslations;
     locale: Locale;
 }
 
-const { translations } = Astro.props;
+const { translations, locale } = Astro.props;
 const testimonials = translations.testimonials;
 const heading = translations.sectionHeadings.clients;
+const sectionIds = getSectionIds(locale);
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: white;">
     <div
         class="relative min-h-screen px-4 py-16 bg-white transform-gpu sm:px-16 sm:py-28 xl:py-32 floating-section__inner"
-        id="klienti"
+        id={sectionIds.clients}
         x-data={'{shown : false }'}
         data-header-section="white"
     >

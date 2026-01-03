@@ -19,13 +19,13 @@
   },
   "homepage": "https://github.com/danekkalivoda/portfolio-astro#readme",
   "devDependencies": {
-    "@alpinejs/intersect": "^3.15.2",
-    "alpinejs": "^3.15.2",
-    "tailwindcss": "^4.1.17",
-    "@tailwindcss/postcss": "^4.1.17"
+    "@alpinejs/intersect": "^3.15.3",
+    "alpinejs": "^3.15.3",
+    "tailwindcss": "^4.1.18",
+    "@tailwindcss/postcss": "^4.1.18"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/sitemap": "^3.6.0",
     "astro": "5.16.4"
   }
 }

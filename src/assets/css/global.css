@@ -10,8 +10,6 @@
   --breakpoint-xs: 414px;
   --breakpoint-3xl: 1920px;
   --breakpoint-4xl: 2560px;
-  --breakpoint-can-hover: (hover: hover);
-  --breakpoint-touch: (hover: none);
 
   --color-vestra: #2ec8dc;
   --color-man: #43a3c7;

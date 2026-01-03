@@ -18,18 +18,25 @@
  * Available as $store.header.showAvatar and $store.nav.activeSection in templates
  */
 export const initHeaderStore = () => {
-  if (typeof window !== 'undefined' && window.Alpine) {
-    window.Alpine.store('header', {
-      showAvatar: false
+  if (typeof window !== "undefined" && window.Alpine) {
+    window.Alpine.store("header", {
+      showAvatar: false,
     });
 
-    window.Alpine.store('nav', {
-      activeSection: ''
+    window.Alpine.store("nav", {
+      activeSection: "",
     });
   }
 };
 
 export const initHeaderSections = () => {
+  if (typeof window !== "undefined") {
+    const existingCleanup = window.__headerSectionsCleanup;
+    if (typeof existingCleanup === "function") {
+      existingCleanup();
+    }
+  }
+
   // Initialize Alpine store
   initHeaderStore();
 
@@ -51,6 +58,13 @@ export const initHeaderSections = () => {
     return;
   }
 
+  const existingLightHeader = container.querySelector(
+    "[data-header-variant='light']",
+  );
+  if (existingLightHeader) {
+    existingLightHeader.remove();
+  }
+
   // Clone the header and modify for light variant
   const lightHeader = darkHeader.cloneNode(true);
   lightHeader.setAttribute("data-header-variant", "light");
@@ -64,6 +78,14 @@ export const initHeaderSections = () => {
   lightHeader.style.clipPath = "inset(0 0 100% 0)";
   lightHeader.style.webkitClipPath = "inset(0 0 100% 0)";
 
+  // Avoid duplicating the floating language switcher when cloning the header
+  const floatingSwitcher = lightHeader.querySelector(
+    "[data-language-switcher-floating]",
+  );
+  if (floatingSwitcher) {
+    floatingSwitcher.remove();
+  }
+
   // Insert the light header after the dark one
   container.appendChild(lightHeader);
 
@@ -76,6 +98,38 @@ export const initHeaderSections = () => {
 
   if (!sections.length) {
     return;
+  }
+
+  const mobileSwitcher = document.querySelector(
+    ".mobile-lang-switcher:not(.mobile-lang-switcher--light)",
+  );
+  let lightMobileSwitcher = null;
+  if (mobileSwitcher) {
+    const existingLightSwitchers = document.querySelectorAll(
+      ".mobile-lang-switcher--light",
+    );
+    for (const existingLightSwitcher of existingLightSwitchers) {
+      existingLightSwitcher.remove();
+    }
+
+    const switcherClone = mobileSwitcher.cloneNode(true);
+    switcherClone.classList.add("mobile-lang-switcher--light");
+    switcherClone.setAttribute("aria-hidden", "true");
+    switcherClone.style.pointerEvents = "none";
+
+    const cloneLinks = switcherClone.querySelectorAll("a");
+    for (const link of cloneLinks) {
+      link.setAttribute("tabindex", "-1");
+      link.setAttribute("aria-hidden", "true");
+    }
+
+    if (mobileSwitcher.parentNode) {
+      mobileSwitcher.parentNode.insertBefore(
+        switcherClone,
+        mobileSwitcher.nextSibling,
+      );
+      lightMobileSwitcher = switcherClone;
+    }
   }
 
   /**
@@ -94,7 +148,7 @@ export const initHeaderSections = () => {
    * Section IDs for navigation tracking
    * These correspond to the menu links in a_menulink.astro
    */
-  const navSectionIds = ['projekty', 'sluzby', 'klienti', 'kontakt'];
+  const navSectionIds = ["projekty", "sluzby", "klienti", "kontakt"];
   const navSections = [];
   for (const id of navSectionIds) {
     const element = document.getElementById(id);
@@ -117,7 +171,7 @@ export const initHeaderSections = () => {
     // Threshold: consider section active when its top is at or above this point
     const threshold = headerHeight + 100;
 
-    let activeSection = '';
+    let activeSection = "";
 
     // Find the section that is currently in view
     // We iterate in reverse to find the last section that has scrolled past the threshold
@@ -134,7 +188,7 @@ export const initHeaderSections = () => {
 
     // Update Alpine store
     if (window.Alpine?.store) {
-      window.Alpine.store('nav').activeSection = activeSection;
+      window.Alpine.store("nav").activeSection = activeSection;
     }
 
     // Update data attribute on container for CSS targeting (works with cloned light header)
@@ -142,8 +196,8 @@ export const initHeaderSections = () => {
 
     // Also sync the is-active class to cloned light header links
     // The dark header Alpine handles its own state, but the clone needs manual sync
-    const darkLinks = darkHeader.querySelectorAll('.header-menu-link');
-    const lightLinks = lightHeader.querySelectorAll('.header-menu-link');
+    const darkLinks = darkHeader.querySelectorAll(".header-menu-link");
+    const lightLinks = lightHeader.querySelectorAll(".header-menu-link");
 
     for (let i = 0; i < darkLinks.length; i++) {
       const darkLink = darkLinks[i];
@@ -153,19 +207,19 @@ export const initHeaderSections = () => {
       }
 
       // Extract section ID from href (e.g., "/#projekty" -> "projekty")
-      const href = darkLink.getAttribute('href') || '';
-      const sectionId = href.replace(/^\/?#/, '');
+      const href = darkLink.getAttribute("href") || "";
+      const sectionId = href.replace(/^\/?#/, "");
 
       if (sectionId === activeSection) {
-        darkLink.classList.add('is-active');
-        lightLink.classList.add('is-active');
+        darkLink.classList.add("is-active");
+        lightLink.classList.add("is-active");
 
         // Auto-scroll nav to show active item on mobile
         scrollNavToActiveItem(darkLink, darkHeader);
         scrollNavToActiveItem(lightLink, lightHeader);
       } else {
-        darkLink.classList.remove('is-active');
-        lightLink.classList.remove('is-active');
+        darkLink.classList.remove("is-active");
+        lightLink.classList.remove("is-active");
       }
     }
   };
@@ -175,7 +229,7 @@ export const initHeaderSections = () => {
    * Only applies on mobile where the nav is scrollable
    */
   const scrollNavToActiveItem = (activeLink, header) => {
-    const nav = header.querySelector('.header-nav-scroll');
+    const nav = header.querySelector(".header-nav-scroll");
     if (!nav || nav.scrollWidth <= nav.clientWidth) {
       return; // Not scrollable, skip
     }
@@ -189,7 +243,7 @@ export const initHeaderSections = () => {
 
     // Center the active link in the visible area
     const navVisibleWidth = nav.clientWidth;
-    const targetScroll = linkLeft - (navVisibleWidth / 2) + (linkRect.width / 2);
+    const targetScroll = linkLeft - navVisibleWidth / 2 + linkRect.width / 2;
 
     // Clamp to valid scroll range
     const maxScroll = nav.scrollWidth - navVisibleWidth;
@@ -197,7 +251,7 @@ export const initHeaderSections = () => {
 
     nav.scrollTo({
       left: clampedScroll,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -206,13 +260,13 @@ export const initHeaderSections = () => {
    * Shows left/right fades only when there's content to scroll in that direction
    */
   const updateNavFadeMasks = () => {
-    const navElements = container.querySelectorAll('.header-nav-scroll');
+    const navElements = container.querySelectorAll(".header-nav-scroll");
 
     for (const nav of navElements) {
       if (nav.scrollWidth <= nav.clientWidth) {
         // Not scrollable - remove all masks
-        nav.removeAttribute('data-scroll-start');
-        nav.removeAttribute('data-scroll-end');
+        nav.removeAttribute("data-scroll-start");
+        nav.removeAttribute("data-scroll-end");
         continue;
       }
 
@@ -222,16 +276,16 @@ export const initHeaderSections = () => {
 
       // Can scroll left (not at start)
       if (scrollLeft > threshold) {
-        nav.setAttribute('data-scroll-start', '');
+        nav.setAttribute("data-scroll-start", "");
       } else {
-        nav.removeAttribute('data-scroll-start');
+        nav.removeAttribute("data-scroll-start");
       }
 
       // Can scroll right (not at end)
       if (scrollLeft < maxScroll - threshold) {
-        nav.setAttribute('data-scroll-end', '');
+        nav.setAttribute("data-scroll-end", "");
       } else {
-        nav.removeAttribute('data-scroll-end');
+        nav.removeAttribute("data-scroll-end");
       }
     }
   };
@@ -253,12 +307,12 @@ export const initHeaderSections = () => {
 
     // Update Alpine store (for template reactivity)
     if (window.Alpine?.store) {
-      window.Alpine.store('header').showAvatar = heroIsAboveHeader;
+      window.Alpine.store("header").showAvatar = heroIsAboveHeader;
     }
 
     // Update data attribute on container (for cloned light header)
     if (heroIsAboveHeader) {
-      container.dataset.showAvatar = '';
+      container.dataset.showAvatar = "";
     } else {
       delete container.dataset.showAvatar;
     }
@@ -297,7 +351,7 @@ export const initHeaderSections = () => {
         if (visibleBottom > visibleTop) {
           whiteRanges.push({
             top: visibleTop,
-            bottom: visibleBottom
+            bottom: visibleBottom,
           });
         }
       }
@@ -358,7 +412,7 @@ export const initHeaderSections = () => {
         `0px ${range.top}px`,
         `${viewportWidth}px ${range.top}px`,
         `${viewportWidth}px ${range.bottom}px`,
-        `0px ${range.bottom}px`
+        `0px ${range.bottom}px`,
       );
     }
 
@@ -450,6 +504,172 @@ export const initHeaderSections = () => {
     }
   };
 
+  /**
+   * Update floating mobile language switcher clip mask based on white sections
+   */
+  const updateMobileSwitcherClip = () => {
+    if (!mobileSwitcher || !lightMobileSwitcher) {
+      return;
+    }
+
+    const onIOS = isIOS();
+    const switcherRect = mobileSwitcher.getBoundingClientRect();
+    if (!switcherRect.width || !switcherRect.height) {
+      lightMobileSwitcher.style.clipPath = "inset(0 0 100% 0)";
+      lightMobileSwitcher.style.webkitClipPath = "inset(0 0 100% 0)";
+      lightMobileSwitcher.style.pointerEvents = "none";
+      if (onIOS) {
+        mobileSwitcher.style.clipPath = "none";
+        mobileSwitcher.style.webkitClipPath = "none";
+      } else {
+        mobileSwitcher.style.clipPath = "inset(0 0 0 0)";
+      }
+      mobileSwitcher.style.pointerEvents = "auto";
+      return;
+    }
+
+    const whiteRanges = [];
+
+    for (const section of sections) {
+      const variant = section.getAttribute("data-header-section");
+      if (variant !== "white") {
+        continue;
+      }
+
+      const rect = section.getBoundingClientRect();
+      const visibleTop = Math.max(rect.top, switcherRect.top);
+      const visibleBottom = Math.min(rect.bottom, switcherRect.bottom);
+
+      if (visibleBottom > visibleTop) {
+        whiteRanges.push({
+          top: visibleTop - switcherRect.top,
+          bottom: visibleBottom - switcherRect.top,
+        });
+      }
+    }
+
+    if (!whiteRanges.length) {
+      lightMobileSwitcher.style.clipPath = "inset(0 0 100% 0)";
+      lightMobileSwitcher.style.webkitClipPath = "inset(0 0 100% 0)";
+      lightMobileSwitcher.style.pointerEvents = "none";
+      if (onIOS) {
+        mobileSwitcher.style.clipPath = "none";
+        mobileSwitcher.style.webkitClipPath = "none";
+      } else {
+        mobileSwitcher.style.clipPath = "inset(0 0 0 0)";
+      }
+      mobileSwitcher.style.pointerEvents = "auto";
+      return;
+    }
+
+    whiteRanges.sort((a, b) => a.top - b.top);
+    const mergedRanges = [];
+
+    for (const range of whiteRanges) {
+      if (mergedRanges.length === 0) {
+        mergedRanges.push({ ...range });
+        continue;
+      }
+
+      const last = mergedRanges[mergedRanges.length - 1];
+      if (range.top <= last.bottom) {
+        last.bottom = Math.max(last.bottom, range.bottom);
+      } else {
+        mergedRanges.push({ ...range });
+      }
+    }
+
+    const buildBandPolygon = (ranges) => {
+      const points = [];
+      for (let i = 0; i < ranges.length; i++) {
+        const range = ranges[i];
+        if (i === 0) {
+          points.push(`0px ${range.top}px`);
+        }
+        points.push(`${switcherRect.width}px ${range.top}px`);
+        points.push(`${switcherRect.width}px ${range.bottom}px`);
+
+        if (i < ranges.length - 1) {
+          const nextRange = ranges[i + 1];
+          points.push(`0px ${range.bottom}px`);
+          points.push(`0px ${nextRange.top}px`);
+        }
+      }
+
+      const lastRange = ranges[ranges.length - 1];
+      points.push(`0px ${lastRange.bottom}px`);
+
+      return points.join(", ");
+    };
+
+    if (mergedRanges.length === 1) {
+      const range = mergedRanges[0];
+      const topInset = range.top;
+      const bottomInset = switcherRect.height - range.bottom;
+
+      lightMobileSwitcher.style.clipPath = `inset(${topInset}px 0 ${bottomInset}px 0)`;
+      lightMobileSwitcher.style.webkitClipPath = `inset(${topInset}px 0 ${bottomInset}px 0)`;
+      lightMobileSwitcher.style.pointerEvents = "auto";
+    } else {
+      const lightPolygon = buildBandPolygon(mergedRanges);
+      lightMobileSwitcher.style.clipPath = `polygon(${lightPolygon})`;
+      lightMobileSwitcher.style.webkitClipPath = `polygon(${lightPolygon})`;
+      lightMobileSwitcher.style.pointerEvents = "auto";
+    }
+
+    if (onIOS) {
+      mobileSwitcher.style.clipPath = "none";
+      mobileSwitcher.style.webkitClipPath = "none";
+    } else {
+      mobileSwitcher.style.clipPath = `inset(0 0 0 0)`;
+    }
+    mobileSwitcher.style.pointerEvents = "auto";
+
+    const darkRanges = [];
+    let cursor = 0;
+
+    for (let i = 0; i < mergedRanges.length; i++) {
+      const range = mergedRanges[i];
+      if (range.top > cursor) {
+        darkRanges.push({
+          top: cursor,
+          bottom: range.top,
+        });
+      }
+      cursor = Math.max(cursor, range.bottom);
+    }
+
+    if (cursor < switcherRect.height) {
+      darkRanges.push({
+        top: cursor,
+        bottom: switcherRect.height,
+      });
+    }
+
+    if (darkRanges.length === 0) {
+      mobileSwitcher.style.clipPath = "inset(0 0 100% 0)";
+      mobileSwitcher.style.webkitClipPath = "inset(0 0 100% 0)";
+      mobileSwitcher.style.pointerEvents = "none";
+      return;
+    }
+
+    if (darkRanges.length === 1) {
+      const range = darkRanges[0];
+      const topInset = range.top;
+      const bottomInset = switcherRect.height - range.bottom;
+
+      mobileSwitcher.style.clipPath = `inset(${topInset}px 0 ${bottomInset}px 0)`;
+      mobileSwitcher.style.webkitClipPath = `inset(${topInset}px 0 ${bottomInset}px 0)`;
+      mobileSwitcher.style.pointerEvents = "auto";
+      return;
+    }
+
+    const darkPolygon = buildBandPolygon(darkRanges);
+    mobileSwitcher.style.clipPath = `polygon(${darkPolygon})`;
+    mobileSwitcher.style.webkitClipPath = `polygon(${darkPolygon})`;
+    mobileSwitcher.style.pointerEvents = "auto";
+  };
+
   let ticking = false;
   const onScroll = () => {
     if (ticking) {
@@ -462,19 +682,28 @@ export const initHeaderSections = () => {
       updateAvatarVisibility();
       updateActiveSection();
       updateNavFadeMasks();
+      updateMobileSwitcherClip();
     });
+  };
+
+  const cleanupTasks = [];
+  const addCleanup = (task) => {
+    cleanupTasks.push(task);
   };
 
   // Listen for scroll and resize events
   window.addEventListener("scroll", onScroll, { passive: true });
+  addCleanup(() => window.removeEventListener("scroll", onScroll));
   window.addEventListener("resize", onScroll);
+  addCleanup(() => window.removeEventListener("resize", onScroll));
 
   // Listen for horizontal scroll within nav elements (user manually scrolling)
   // Note: We query after cloning so both dark and light header navs are included
   const setupNavScrollListeners = () => {
-    const navElements = container.querySelectorAll('.header-nav-scroll');
+    const navElements = container.querySelectorAll(".header-nav-scroll");
     for (const nav of navElements) {
-      nav.addEventListener('scroll', updateNavFadeMasks, { passive: true });
+      nav.addEventListener("scroll", updateNavFadeMasks, { passive: true });
+      addCleanup(() => nav.removeEventListener("scroll", updateNavFadeMasks));
     }
   };
   setupNavScrollListeners();
@@ -484,4 +713,18 @@ export const initHeaderSections = () => {
   updateAvatarVisibility();
   updateActiveSection();
   updateNavFadeMasks();
+  updateMobileSwitcherClip();
+
+  if (typeof window !== "undefined") {
+    window.__headerSectionsCleanup = () => {
+      for (const task of cleanupTasks) {
+        task();
+      }
+
+      if (lightMobileSwitcher) {
+        lightMobileSwitcher.remove();
+        lightMobileSwitcher = null;
+      }
+    };
+  }
 };

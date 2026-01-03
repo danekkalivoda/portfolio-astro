@@ -1,38 +1,16 @@
 ---
 import MTestimonial from '../components/molecules/m_testimonial.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
+import type { ITranslations, Locale } from '../i18n/types';
 
-type Testimonial = {
-    name: string;
-    role?: string;
-    company: string;
-    quote: string;
+interface Props {
+    translations: ITranslations;
+    locale: Locale;
 }
 
-const testimonials: Testimonial[] = [
-    {
-        name: 'Marek Feuermann',
-        company: 'Enterprise Systems s.r.o.',
-        quote: 'Dan je mimořádně silný frontend developer s jasným technologickým náskokem. Neustále sleduje vývoj v oboru a jako early adopter dokáže nové technologie velmi rychle převést do reálně použitelných řešení. Vyniká vysokou pracovní disciplínou, tahem na výsledek a ochotou převzít plnou odpovědnost za svěřené části projektu. Samostudium bere jako nedílnou součást práce a technické problémy řeší systematicky, bez hledání výmluv. Pokud hledáte vývojáře, který dlouhodobě dodává kvalitu, drží krok s technologiemi a posouvá projekt dopředu Dan je velmi silná volba.'
-    },
-    {
-        name: 'Michal David',
-        role: 'vedoucí pracovní skupin SW',
-        company: 'ISP Alliance a.s.',
-        quote: 'Dan má tah na bránu a evidentně ho baví to, co dělá. Než něco navrhne, tak poslouchá a ptá se. Kdo to bude používat, jak to bude používat, co je nejdůležitější z toho co ukazujeme uživateli, atd. Nikdy nám nevnucuje to, kde máme nějaké pochybnosti. Je velmi empatický, ale nenechá se vtlačit do žádné "čuňárny". S námi spolupracuje na poměrně komplexním a netradičním projektu, kde musí dát dohromady skládačku z mnoha nesourodých designových komponent, které si konečný uživatel poskladá dle své vůle a pořád to musí vypadat k světu. On to prostě umí, navrhuje velmi moderní a čisté věci. Je velmi rychlý a používá velmi dobré vybavení. K našemu projektu přišel až na poslední třetinu, což je mi velmi líto, protože kdyby s námi byl od začátku, tak nám ušetřil spoustu peněz a času. S Danem bude spokojený každý, kdo nehledá žádný kompromis v oblasti kvality.'
-    },
-    {
-        name: 'Milan "Felix" Šulc',
-        company: 'f3l1x.io',
-        quote: 'Mám radost, když mohu s Dankem spolupracovat na zajímavých projektech.'
-    },
-    {
-        name: 'Monika Dostálková',
-        role: 'PR manažer',
-        company: 'netpromotion group s.r.o.',
-        quote: 'Pravidelná dlouholetá spolupráce bez výhrad. Ze své pozice oceňuji rychlou a kvalitní práci bez zbytečných otázek dodanou v náročných termínech. Ochotu poslouchat, přizpůsobit se na poslední chvíli změnám zadání a byť na dálku a on-line, vypadá to, že s úsměvem :-).'
-    }
-];
+const { translations } = Astro.props;
+const testimonials = translations.testimonials;
+const heading = translations.sectionHeadings.clients;
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: white;">
@@ -44,12 +22,12 @@ const testimonials: Testimonial[] = [
     >
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
-                title="Klienti"
-                subtitle="Spolupráce postavená na důvěře."
-                description="Spolupracuji s menšími týmy i většími firmami, kde je kladen důraz na kvalitu, stabilitu a dlouhodobý rozvoj produktu."
+                title={heading.title}
+                subtitle={heading.subtitle}
+                description={heading.description}
                 theme="light"
                 showButton={true}
-                buttonText="Napište mi"
+                buttonText={heading.buttonText}
             />
             <section
                 class="flex flex-col gap-y-4 overflow-hidden xl:w-2/3 -mx-4 xl:pl-24 xl:mx-0"

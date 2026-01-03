@@ -13,6 +13,13 @@ const nodeModulesRealPath = existsSync(nodeModulesPath)
 export default defineConfig({
     site: 'https://kalivoda.design',
     integrations: [sitemap()],
+    i18n: {
+        defaultLocale: 'cs',
+        locales: ['cs', 'en'],
+        routing: {
+            prefixDefaultLocale: false,
+        },
+    },
     vite: {
         server: {
             fs: {

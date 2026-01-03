@@ -112,3 +112,17 @@ initViewportHeightFix();
 
 Alpine.start();
 initHeaderSections();
+
+const initPageAfterSwap = () => {
+  initHeader();
+  initHeroAvatar();
+  initContactForm();
+
+  if (window.Alpine?.initTree) {
+    window.Alpine.initTree(document.body);
+  }
+
+  initHeaderSections();
+};
+
+document.addEventListener("astro:page-load", initPageAfterSwap);

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Hero from '../../components/Hero.astro'
+import HomepageProjects from '../../templates/HomepageProjects.astro'
+import HomepageServices from '../../templates/HomepageServices.astro'
+import HomepageClients from '../../templates/HomepageClients.astro'
+import ContactForm from '../../templates/ContactForm.astro'
+import { getTranslations } from '../../i18n/utils'
+
+const locale = 'en'
+const t = getTranslations(locale)
+---
+
+<BaseLayout
+    title={t.meta.title}
+    description={t.meta.description}
+    locale={locale}
+    homepage={true}
+>
+    <Hero slot="beforeContent" translations={t.hero} locale={locale} />
+    <HomepageProjects translations={t} locale={locale} />
+    <HomepageServices translations={t} locale={locale} />
+    <HomepageClients translations={t} locale={locale} />
+    <ContactForm translations={t} locale={locale} />
+</BaseLayout>

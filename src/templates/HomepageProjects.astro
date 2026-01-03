@@ -1,34 +1,16 @@
 ---
 import MProjectSlider from '../components/molecules/m_project_slider.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
+import type { ITranslations, Locale } from '../i18n/types';
 
-interface IProject {
-    title: string;
-    description: string;
-    images: string[];
-    categories: string[];
+interface Props {
+    translations: ITranslations;
+    locale: Locale;
 }
 
-const projects: IProject[] = [
-    {
-        title: 'Recruitis.io',
-        description: 'Vue 3 aplikace s TypeScript a Tailwind CSS, kterou vyvíjím ve Storybooku. Buduju design systém a UI komponenty pro ATS používaný stovkami firem k řízení náborových procesů.',
-        images: ['/recruitis-1.webp', '/recruitis-2.webp', '/recruitis-3.webp'],
-        categories: ['SaaS', 'Design System', 'Vue.js']
-    },
-    {
-        title: 'Lékárna.cz',
-        description: 'Dlouhodobá spolupráce na první internetové lékárně v ČR. Navrhuji a implementuji UI pro e-commerce s 30 000+ produkty, mobilní aplikaci a rozšíření o farmaceutické poradenství.',
-        images: ['/lekarna-1.webp', '/lekarna-2.webp', '/lekarna-3.webp'],
-        categories: ['E-commerce', 'UX Design', 'Mobile App']
-    },
-    {
-        title: 'Floweye',
-        description: 'Low-code platforma pro workflow management. Tvořím UI komponenty a dashboardy pro správu firemních procesů od úkolů po řízení dovolených v cloudovém SaaS prostředí.',
-        images: ['/floweye-1.webp', '/floweye-2.webp', '/floweye-3.webp'],
-        categories: ['SaaS', 'Low-code', 'Dashboard']
-    }
-];
+const { translations } = Astro.props;
+const projects = translations.projects;
+const heading = translations.sectionHeadings.projects;
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: white;">
@@ -40,12 +22,12 @@ const projects: IProject[] = [
     >
         <div class="w-full xl:flex xl:items-start sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <MSectionHeading
-                title="Projekty"
-                subtitle="Vybrané projekty z reálného provozu."
-                description="Pracuji na dlouhodobých digitálních produktech, které denně používají tisíce uživatelů. Podílím se na návrhu architektury, vývoji i vizuální stránce aplikací – od prvních prototypů až po škálování hotového řešení. Většina projektů je neveřejná nebo vzniká v rámci dlouhodobé spolupráce, proto zde ukazuji jen vybrané ukázky."
+                title={heading.title}
+                subtitle={heading.subtitle}
+                description={heading.description}
                 theme="light"
                 showButton={true}
-                buttonText="Napište mi"
+                buttonText={heading.buttonText}
                 buttonHref="#kontakt"
             />
             <section

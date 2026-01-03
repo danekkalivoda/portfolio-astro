@@ -1,19 +1,4 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import Hero from '../components/Hero.astro'
-import HomepageProjects from '../templates/HomepageProjects.astro'
-import HomepageServices from '../templates/HomepageServices.astro'
-import HomepageClients from '../templates/HomepageClients.astro'
-import ContactForm from '../templates/ContactForm.astro'
+// Redirect to default locale (Czech)
+return Astro.redirect('/cs/', 302);
 ---
-<BaseLayout
-    title="Daniel Kalivoda - Front-End Engineer & UI/UX Designer"
-    description="Front-end vývojář s 15+ lety zkušeností. TypeScript-first development, komponenty ve Storybooku a produkční aplikace ve Vue 3 a Reactu."
-    homepage={true}
->
-    <Hero slot="beforeContent" />
-    <HomepageProjects />
-    <HomepageServices />
-    <HomepageClients />
-    <ContactForm />
-</BaseLayout>

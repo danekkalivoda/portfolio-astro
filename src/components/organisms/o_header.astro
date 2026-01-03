@@ -1,7 +1,17 @@
 ---
 import MMenu from "../molecules/m_menu.astro";
 import ALogo from "../atoms/a_logo.astro";
-const { homepage } = Astro.props;
+import LanguageSwitcher from "../LanguageSwitcher.astro";
+import type { Locale } from "../../i18n/types";
+import { getTranslations } from "../../i18n/utils";
+
+interface Props {
+  homepage?: boolean;
+  locale?: Locale;
+}
+
+const { homepage, locale = 'cs' } = Astro.props;
+const t = getTranslations(locale);
 ---
 <div class="header-container group" data-header-clip>
     <header
@@ -9,7 +19,8 @@ const { homepage } = Astro.props;
     >
         <div class="md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto w-full flex flex-row items-center h-16 pl-4 lg:h-22 sm:px-12 lg:px-16 xl:pl-5 xl:pr-0">
             <ALogo homepage={homepage}/>
-            <MMenu />
+            <MMenu navigation={t.navigation} />
+            <LanguageSwitcher currentLocale={locale} className="ml-4" mode="desktop" />
         </div>
     </header>
 </div>

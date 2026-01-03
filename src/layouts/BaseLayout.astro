@@ -1,12 +1,35 @@
 ---
 import OHeader from '../components/organisms/o_header.astro'
+import LanguageSwitcher from '../components/LanguageSwitcher.astro'
 import globalStylesUrl from '../assets/css/global.css?url'
+import type { Locale } from '../i18n/types'
+import { locales } from '../i18n/utils'
+import { ViewTransitions } from 'astro:transitions'
 
-const {title, description, homepage} = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  homepage?: boolean;
+  locale?: Locale;
+}
+
+const {title, description, homepage, locale = 'cs'} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL('/og-image.jpg', Astro.site);
+
+// Generate alternate language URLs for hreflang
+const alternateUrls = locales.map(lang => ({
+  lang,
+  url: new URL(Astro.url.pathname.replace(/^\/(cs|en)/, `/${lang}`), Astro.site).href
+}));
+
+// Locale mapping for Open Graph
+const ogLocaleMap: Record<Locale, string> = {
+  cs: 'cs_CZ',
+  en: 'en_US'
+};
 ---
-<html lang="cs">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,13 +37,19 @@ const ogImageURL = new URL('/og-image.jpg', Astro.site);
     <meta name="description" content={description}>
     <link rel="canonical" href={canonicalURL}>
 
+    <!-- Alternate language links for SEO -->
+    {alternateUrls.map(({ lang, url }) => (
+      <link rel="alternate" hreflang={lang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={new URL('/cs/', Astro.site).href} />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
     <meta property="og:image" content={ogImageURL}>
     <meta property="og:url" content={canonicalURL}>
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:locale" content={ogLocaleMap[locale]}>
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -56,6 +85,7 @@ const ogImageURL = new URL('/og-image.jpg', Astro.site);
 
     <link rel="stylesheet" type="text/css" href={globalStylesUrl}>
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <ViewTransitions />
     <script>
       import '../assets/js/global.js'
     </script>
@@ -69,7 +99,8 @@ const ogImageURL = new URL('/og-image.jpg', Astro.site);
 
 
   <body x-data={"header()"} class="subpixel-antialiased">
-    <OHeader homepage={homepage} />
+    <OHeader homepage={homepage} locale={locale} />
+    <LanguageSwitcher currentLocale={locale} mode="mobile" />
     <slot name="beforeContent"/>
     <slot />
     <slot name="afterContent"/>

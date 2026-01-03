@@ -1,3 +1,15 @@
+---
+import type { ITranslations } from '../i18n/types'
+import type { Locale } from '../i18n/types'
+
+interface Props {
+  translations: ITranslations['hero'];
+  locale: Locale;
+}
+
+const { translations } = Astro.props;
+---
+
 <div
     class="fixed top-0 left-0 right-0 z-0 flex flex-col h-[calc(var(--app-height)+env(safe-area-inset-bottom))]"
 >
@@ -29,14 +41,16 @@
                     />
                 </div>
             </div>
-            <p class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
-              <span class="text-white">Ahoj jsem Daniel Kalivoda.</span>
-            </p>
+            <p
+              class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center text-gray-400"
+              set:html={translations.greeting}
+            ></p>
             <h2 class="py-2 text-3xl font-bold tracking-tighter text-transparent uppercase bg-linear-to-tr from-blue-500 to-green-300 sm:text-5xl lg:text-7xl bg-clip-text px-4">
-                Designer & Developer</h2>
-            <p class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center">
-                <span class="text-white">15+ let zkušeností s designem i vývojem.</span><br class="sm:hidden"/> TypeScript-first přístup, komponentový vývoj ve Storybooku a AI nástroje mi umožňují dodávat kvalitní, udržitelné a přístupné produkty.
-            </p>
+                {translations.title}</h2>
+            <p
+              class="max-w-3xl text-base sm:text-lg font-light leading-relaxed tracking-tight xl:leading-9 lg:text-xl w-full mx-auto text-center text-gray-400"
+              set:html={translations.description}
+            ></p>
         </div>
     </div>
 </div>

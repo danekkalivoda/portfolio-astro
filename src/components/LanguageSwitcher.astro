@@ -1,0 +1,98 @@
+---
+interface Props {
+    currentLocale: "cs" | "en";
+    className?: string;
+    mode?: "desktop" | "mobile" | "both";
+}
+
+const { currentLocale, className = "", mode = "both" } = Astro.props;
+const isCsActive = currentLocale === "cs";
+const isEnActive = currentLocale === "en";
+const showDesktop = mode !== "mobile";
+const showMobile = mode !== "desktop";
+const ariaLabel = currentLocale === "cs" ? "Přepnout jazyk" : "Switch language";
+
+// Get current path for language switching
+const currentPath = Astro.url.pathname;
+const pathWithoutLocale = currentPath.replace(/^\/(cs|en)/, "") || "/";
+
+// Generate alternate URLs
+const csUrl = currentLocale === "cs" ? currentPath : `/cs${pathWithoutLocale}`;
+const enUrl = currentLocale === "en" ? currentPath : `/en${pathWithoutLocale}`;
+---
+
+<div class={`language-switcher ${className}`}>
+    {
+        showDesktop ? (
+            <div class="hidden lg:flex items-center gap-1 -mr-2">
+                <a
+                    href={csUrl}
+                    class:list={[
+                        "lang-option-desktop relative px-4 py-1.5 text-[0.9375rem] font-medium tracking-[0.025em] text-gray-400 transition-colors duration-200 hover:text-gray-100 cursor-pointer no-underline after:content-[''] after:absolute after:bottom-0 after:left-2 after:right-2 after:h-px after:bg-[linear-gradient(90deg,transparent,currentColor_20%,currentColor_80%,transparent)] after:opacity-0 after:scale-x-75 after:origin-center after:transition after:duration-300 after:ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none motion-reduce:after:transition-none [.header--light_&]:text-gray-500 [.header--light_&]:hover:text-gray-900",
+                        isCsActive &&
+                            "text-white font-semibold after:opacity-60 after:scale-x-100 [.header--light_&]:text-gray-900",
+                    ]}
+                    aria-current={isCsActive ? "true" : undefined}
+                    data-astro-transition
+                >
+                    <span class="lang-text">CS</span>
+                </a>
+
+                <span class="separator text-gray-600/60 font-light [.header--light_&]:text-gray-400/70">
+                    /
+                </span>
+
+                <a
+                    href={enUrl}
+                    class:list={[
+                        "lang-option-desktop relative px-4 py-1.5 text-[0.9375rem] font-medium tracking-[0.025em] text-gray-400 transition-colors duration-200 hover:text-gray-100 cursor-pointer no-underline after:content-[''] after:absolute after:bottom-0 after:left-2 after:right-2 after:h-px after:bg-[linear-gradient(90deg,transparent,currentColor_20%,currentColor_80%,transparent)] after:opacity-0 after:scale-x-75 after:origin-center after:transition after:duration-300 after:ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none motion-reduce:after:transition-none [.header--light_&]:text-gray-500 [.header--light_&]:hover:text-gray-900",
+                        isEnActive &&
+                            "text-white font-semibold after:opacity-60 after:scale-x-100 [.header--light_&]:text-gray-900",
+                    ]}
+                    aria-current={isEnActive ? "true" : undefined}
+                    data-astro-transition
+                >
+                    <span class="lang-text">EN</span>
+                </a>
+            </div>
+        ) : null
+    }
+
+    {
+        showMobile ? (
+            <div
+                class="lg:hidden mobile-lang-switcher group fixed right-4 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-[60] inline-flex items-center gap-0 p-1 rounded-[8px] bg-gray-900/65 backdrop-blur-lg overflow-hidden transition-[background,border-color,box-shadow] duration-200 ease-out motion-reduce:transition-none border border-white/10 [&.mobile-lang-switcher--light]:bg-white/70 [&.mobile-lang-switcher--light]:border-black/5 max-[380px]:right-4 max-[380px]:bottom-[calc(1rem+env(safe-area-inset-bottom))]"
+                data-language-switcher-floating
+                role="group"
+                aria-label={ariaLabel}
+            >
+                <div class="mobile-lang-toggle inline-flex items-center gap-0">
+                    <a
+                        href={csUrl}
+                        class:list={[
+                            "mobile-lang-link min-w-[44px] h-8 inline-flex items-center justify-center rounded-[6px] text-[0.625rem] font-bold tracking-tight uppercase text-gray-600 no-underline transition-all duration-200 ease-out hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(147,197,253,0.7)] motion-reduce:transition-none max-[380px]:min-w-[40px] max-[380px]:h-[30px] max-[380px]:text-[0.6rem] group-[.mobile-lang-switcher--light]:text-gray-400 group-[.mobile-lang-switcher--light]:hover:text-gray-900",
+                            isCsActive &&
+                                "bg-black/18 text-white group-[.mobile-lang-switcher--light]:bg-gray-100 group-[.mobile-lang-switcher--light]:text-gray-900",
+                        ]}
+                        aria-current={isCsActive ? "true" : undefined}
+                        data-astro-transition
+                    >
+                        CS
+                    </a>
+                    <a
+                        href={enUrl}
+                        class:list={[
+                            "mobile-lang-link min-w-[44px] h-8 inline-flex items-center justify-center rounded-[6px] text-[0.625rem] font-bold tracking-tight uppercase text-gray-600 no-underline transition-all duration-200 ease-out hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[rgba(147,197,253,0.7)] motion-reduce:transition-none max-[380px]:min-w-[40px] max-[380px]:h-[30px] max-[380px]:text-[0.6rem] group-[.mobile-lang-switcher--light]:text-gray-400 group-[.mobile-lang-switcher--light]:hover:text-gray-900",
+                            isEnActive &&
+                                "bg-black/18 text-white  group-[.mobile-lang-switcher--light]:bg-gray-100 group-[.mobile-lang-switcher--light]:text-gray-900",
+                        ]}
+                        aria-current={isEnActive ? "true" : undefined}
+                        data-astro-transition
+                    >
+                        EN
+                    </a>
+                </div>
+            </div>
+        ) : null
+    }
+</div>

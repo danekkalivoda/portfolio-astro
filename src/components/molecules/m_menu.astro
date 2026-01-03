@@ -1,16 +1,29 @@
 ---
 import AMenuLink from "../atoms/a_menulink.astro";
+import type { INavigation } from "../../i18n/types";
+
+interface Props {
+    navigation: INavigation;
+}
+
+const { navigation } = Astro.props;
+
+const sectionLinks = {
+    projects: "#projekty",
+    services: "#sluzby",
+    clients: "#klienti",
+    contact: "#kontakt",
+};
 ---
+
 <nav
-  class="
-    header-nav-scroll flex items-center min-w-0 ml-auto text-gray-600 flex-nowrap sm:-mr-4 sm:mt-0 3xl:mr-0
+    class="header-nav-scroll flex items-center min-w-0 ml-auto lg:mx-auto text-gray-600 flex-nowrap sm:-mr-4 sm:mt-0 3xl:mr-0
     -translate-x-8 xs:translate-x-0
     transition-transform duration-150 ease-out
-    group-data-show-avatar:translate-x-0
-  "
+    group-data-show-avatar:translate-x-0"
 >
-    <AMenuLink link="/#projekty">Projekty</AMenuLink>
-    <AMenuLink link="/#sluzby">Služby</AMenuLink>
-    <AMenuLink link="/#klienti">Klienti</AMenuLink>
-    <AMenuLink link="/#kontakt">Kontakt</AMenuLink>
+    <AMenuLink link={sectionLinks.projects}>{navigation.projects}</AMenuLink>
+    <AMenuLink link={sectionLinks.services}>{navigation.services}</AMenuLink>
+    <AMenuLink link={sectionLinks.clients}>{navigation.clients}</AMenuLink>
+    <AMenuLink link={sectionLinks.contact}>{navigation.contact}</AMenuLink>
 </nav>

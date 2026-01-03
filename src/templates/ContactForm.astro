@@ -2,6 +2,17 @@
 import ASparkleButton from '../components/atoms/a_sparkle_button.astro'
 import MSectionHeading from '../components/molecules/m_section_heading.astro';
 import OFooter from '../components/organisms/o_footer.astro'
+import type { ITranslations, Locale } from '../i18n/types';
+
+interface Props {
+    translations: ITranslations;
+    locale: Locale;
+}
+
+const { translations, locale } = Astro.props;
+const heading = translations.sectionHeadings.contact;
+const form = translations.contactForm;
+const successUrl = locale === 'cs' ? '/cs/success' : '/en/success';
 ---
 
 <div class="relative z-20 floating-section" style="--section-bg: rgb(17 24 39);">
@@ -15,9 +26,9 @@ import OFooter from '../components/organisms/o_footer.astro'
         <div class="w-full grow flex flex-col sm:mx-auto sm:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
             <div class="contents xl:flex xl:items-start xl:grow">
               <MSectionHeading
-                  title="Kontakt"
-                  subtitle="Rád se na to podívám."
-                  description="Rád si poslechnu, na čem pracujete. Nezávazně, rovnou k věci a bez zbytečné omáčky. Rychle poznáme, jestli si máme co nabídnout."
+                  title={heading.title}
+                  subtitle={heading.subtitle}
+                  description={heading.description}
                   theme="dark"
               >
                   <div
@@ -25,11 +36,11 @@ import OFooter from '../components/organisms/o_footer.astro'
                       x-bind:class={"[shown ? 'translate-y-0' : 'translate-y-full']"}
                   >
                       <div>
-                          <div class="text-xs uppercase text-gray-400 mb-1">ADRESA</div>
-                          <div class="text-sm sm:text-base lg:text-lg text-white">Pardubice, Česká republika</div>
+                          <div class="text-xs uppercase text-gray-400 mb-1">{form.labels.address}</div>
+                          <div class="text-sm sm:text-base lg:text-lg text-white">{form.labels.addressValue}</div>
                       </div>
                       <div>
-                          <div class="text-xs text-gray-400 mb-1">E-MAIL</div>
+                          <div class="text-xs text-gray-400 mb-1">{form.labels.emailLabel}</div>
                           <a
                               href="mailto:danek.kalivoda@gmail.com"
                               class="text-sm sm:text-base lg:text-lg text-white hover:text-blue-400 transition-colors"
@@ -45,7 +56,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                   <form
                       name="contact"
                       method="POST"
-                      action="/success/"
+                      action={successUrl}
                       data-netlify="true"
                       data-netlify-honeypot="bot-field"
                       class="space-y-8"
@@ -59,7 +70,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                       <!-- Honeypot field for spam protection (hidden from users) -->
                       <p class="hidden">
                           <label>
-                              Don't fill this out if you're human:
+                              {form.honeypot}
                               <input name="bot-field" />
                           </label>
                       </p>
@@ -74,7 +85,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                               class="floating-label-input"
                           />
                           <label for="name" class="floating-label">
-                              JMÉNO <span class="text-red-500">*</span>
+                              {form.labels.name} <span class="text-red-500">*</span>
                           </label>
                       </div>
                       <div class="floating-label-group">
@@ -87,7 +98,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                               class="floating-label-input"
                           />
                           <label for="email" class="floating-label">
-                              E-MAIL <span class="text-red-500">*</span>
+                              {form.labels.email} <span class="text-red-500">*</span>
                           </label>
                       </div>
                       <div class="floating-label-group">
@@ -99,7 +110,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                               class="floating-label-input"
                           />
                           <label for="phone" class="floating-label">
-                              TELEFON
+                              {form.labels.phone}
                           </label>
                       </div>
                       <div
@@ -113,16 +124,16 @@ import OFooter from '../components/organisms/o_footer.astro'
                               class="floating-label-input floating-label-select"
                               @change="updateServiceValue($event)"
                           >
-                              <option value="" selected>Vyberte službu</option>
-                              <option value="web-design">Web Design</option>
-                              <option value="ui-ux-design">UI/UX Design</option>
-                              <option value="frontend-development">Frontend Development</option>
-                              <option value="mobile-app">Mobilní aplikace</option>
-                              <option value="consulting">Konzultace</option>
-                              <option value="other">Jiné</option>
+                              <option value="" selected>{form.placeholders.service}</option>
+                              <option value="web-design">{form.services.webDesign}</option>
+                              <option value="ui-ux-design">{form.services.uiUxDesign}</option>
+                              <option value="frontend-development">{form.services.frontendDevelopment}</option>
+                              <option value="mobile-app">{form.services.mobileApp}</option>
+                              <option value="consulting">{form.services.consulting}</option>
+                              <option value="other">{form.services.other}</option>
                           </select>
                           <label for="service" class="floating-label">
-                              JAKOU SLUŽBU POTŘEBUJETE
+                              {form.labels.service}
                           </label>
                           <div class="absolute right-0 top-1/2 transform -translate-y-1/2 pointer-events-none">
                               <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +150,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                               class="floating-label-input floating-label-textarea"
                           ></textarea>
                           <label for="requirements" class="floating-label">
-                              POPIŠTE VÁŠ PROJEKT
+                              {form.labels.requirements}
                           </label>
                       </div>
                       <!-- Error message (shown when submission fails) -->
@@ -154,7 +165,7 @@ import OFooter from '../components/organisms/o_footer.astro'
                               </svg>
                               <div>
                                   <p class="text-red-400 font-medium" x-text="error"></p>
-                                  <p class="text-red-400/70 text-sm mt-1">Zkontrolujte připojení k internetu a zkuste to znovu.</p>
+                                  <p class="text-red-400/70 text-sm mt-1">{form.messages.errorDescription}</p>
                               </div>
                           </div>
                       </div>
@@ -162,11 +173,11 @@ import OFooter from '../components/organisms/o_footer.astro'
                       <div class="-ml-5">
                           <ASparkleButton
                               type="submit"
-                              text="ODESLAT"
+                              text={form.buttons.submit}
                               variant="dark"
                               disabled={true}
                               xBindDisabled="submitting"
-                              xText="submitting ? 'Odesílám...' : 'ODESLAT'"
+                              xText={`submitting ? '${form.buttons.submitting}' : '${form.buttons.submit}'`}
                           />
                       </div>
                   </form>
@@ -183,15 +194,15 @@ import OFooter from '../components/organisms/o_footer.astro'
                         </svg>
                       </div>
                       <h2 class="text-xl lg:text-2xl font-bold text-white mb-1">
-                          Zpráva odeslána
+                          {form.messages.successTitle}
                       </h2>
                       <p class="text-sm lg:text-base text-gray-400 mb-4">
-                          Děkuji za váš zájem. Vaše zpráva byla úspěšně odeslána a brzy se vám ozvu.
+                          {form.messages.successDescription}
                       </p>
                       <div class="-ml-5" @click="resetForm()">
                           <ASparkleButton
                               type="button"
-                              text="Odeslat další zprávu"
+                              text={form.buttons.sendAnother}
                               variant="dark"
                           />
                       </div>

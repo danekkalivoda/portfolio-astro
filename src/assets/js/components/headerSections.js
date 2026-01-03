@@ -392,6 +392,7 @@ export const initHeaderSections = () => {
     const headerHeight = getHeaderHeight();
     const headerBottom = headerHeight;
     const viewportWidth = window.innerWidth;
+    const minVisibleHeight = 2;
 
     // Find all "white" sections that intersect the header area
     const whiteRanges = [];
@@ -410,7 +411,7 @@ export const initHeaderSections = () => {
         const visibleTop = Math.max(0, rect.top);
         const visibleBottom = Math.min(headerBottom, rect.bottom);
 
-        if (visibleBottom > visibleTop) {
+        if (visibleBottom - visibleTop >= minVisibleHeight) {
           whiteRanges.push({
             top: visibleTop,
             bottom: visibleBottom,
@@ -576,6 +577,7 @@ export const initHeaderSections = () => {
 
     const onIOS = isIOS();
     const switcherRect = mobileSwitcher.getBoundingClientRect();
+    const minVisibleHeight = 2;
     if (!switcherRect.width || !switcherRect.height) {
       lightMobileSwitcher.style.clipPath = "inset(0 0 100% 0)";
       lightMobileSwitcher.style.webkitClipPath = "inset(0 0 100% 0)";
@@ -602,7 +604,7 @@ export const initHeaderSections = () => {
       const visibleTop = Math.max(rect.top, switcherRect.top);
       const visibleBottom = Math.min(rect.bottom, switcherRect.bottom);
 
-      if (visibleBottom > visibleTop) {
+      if (visibleBottom - visibleTop >= minVisibleHeight) {
         whiteRanges.push({
           top: visibleTop - switcherRect.top,
           bottom: visibleBottom - switcherRect.top,

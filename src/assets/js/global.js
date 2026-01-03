@@ -73,6 +73,16 @@ const setAppHeight = () => {
   root.style.setProperty("--app-height", `${height + overscan}px`);
 };
 
+const refreshViewportHeight = () => {
+  if (!prefersIOSViewportFix()) {
+    return;
+  }
+
+  setAppHeight();
+  window.setTimeout(setAppHeight, 250);
+  window.setTimeout(setAppHeight, 1000);
+};
+
 const initViewportHeightFix = () => {
   if (!prefersIOSViewportFix()) {
     return;
@@ -90,7 +100,7 @@ const initViewportHeightFix = () => {
     });
   };
 
-  setAppHeight();
+  refreshViewportHeight();
 
   window.addEventListener("resize", scheduleUpdate, { passive: true });
   window.addEventListener("orientationchange", scheduleUpdate, { passive: true });
@@ -100,9 +110,6 @@ const initViewportHeightFix = () => {
     window.visualViewport.addEventListener("resize", scheduleUpdate, { passive: true });
     window.visualViewport.addEventListener("scroll", scheduleUpdate, { passive: true });
   }
-
-  window.setTimeout(setAppHeight, 250);
-  window.setTimeout(setAppHeight, 1000);
 };
 
 let viewportFixInitialized = false;
@@ -134,6 +141,7 @@ const initPageAfterSwap = () => {
     window.Alpine.initTree(document.body);
   }
 
+  refreshViewportHeight();
   initHeaderSections();
 };
 

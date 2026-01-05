@@ -1,25 +1,25 @@
 {
   "active": true,
-  "spec": "020-swipe-on-projects",
+  "spec": "021-more-skills",
   "state": "building",
   "subtasks": {
-    "completed": 0,
-    "total": 1,
+    "completed": 1,
+    "total": 2,
     "in_progress": 1,
     "failed": 0
   },
   "phase": {
     "current": "Implementation",
     "id": 1,
-    "total": 1
+    "total": 2
   },
   "workers": {
     "active": 0,
     "max": 1
   },
   "session": {
-    "number": 1,
-    "started_at": "2026-01-05T13:30:43.673390"
+    "number": 2,
+    "started_at": "2026-01-05T13:30:50.505224"
   },
-  "last_update": "2026-01-05T13:30:43.733406"
+  "last_update": "2026-01-05T13:32:47.184990"
 }

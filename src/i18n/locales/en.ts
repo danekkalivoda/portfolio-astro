@@ -10,6 +10,8 @@ const icons = {
     openai: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-brand-openai size-full"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.217 19.384a3.501 3.501 0 0 0 6.783 -1.217v-5.167l-6 -3.35" /><path d="M5.214 15.014a3.501 3.501 0 0 0 4.446 5.266l4.34 -2.534v-6.946" /><path d="M6 7.63c-1.391 -.236 -2.787 .395 -3.534 1.689a3.474 3.474 0 0 0 1.271 4.745l4.263 2.514l6 -3.348" /><path d="M12.783 4.616a3.501 3.501 0 0 0 -6.783 1.217v5.067l6 3.45" /><path d="M18.786 8.986a3.501 3.501 0 0 0 -4.446 -5.266l-4.34 2.534v6.946" /><path d="M18 16.302c1.391 .236 2.787 -.395 3.534 -1.689a3.474 3.474 0 0 0 -1.271 -4.745l-4.308 -2.514l-5.955 3.42" /></svg>`,
     figma: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-brand-figma size-full"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6 3m0 3a3 3 0 0 1 3 -3h6a3 3 0 0 1 3 3v0a3 3 0 0 1 -3 3h-6a3 3 0 0 1 -3 -3z" /><path d="M9 9a3 3 0 0 0 0 6h3m-3 0a3 3 0 1 0 3 3v-15" /></svg>`,
     astro: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-brand-astro size-full"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14.972 3.483c.163 .196 .247 .46 .413 .987l3.64 11.53a15.5 15.5 0 0 0 -4.352 -1.42l-2.37 -7.723a.31 .31 0 0 0 -.296 -.213a.31 .31 0 0 0 -.295 .214l-2.342 7.718a15.5 15.5 0 0 0 -4.37 1.422l3.657 -11.53c.168 -.527 .251 -.79 .415 -.986c.144 -.172 .331 -.306 .544 -.388c.242 -.094 .527 -.094 1.099 -.094h2.612c.572 0 .858 0 1.1 .094c.213 .082 .4 .217 .545 .39" /><path d="M9 18c0 1.5 2 3 3 4c1 -1 3 -3 3 -4q -3 1.5 -6 0" /></svg>`,
+    supabase: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-brand-supabase size-full"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 14h8v7l8 -11h-8v-7z" /></svg>`,
+    expo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-device-mobile size-full"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14z" /><path d="M11 4h2" /><path d="M12 17v.01" /></svg>`,
 };
 
 // Icon colors - hex values for brand accuracy
@@ -22,6 +24,8 @@ const iconColors: Record<string, string> = {
     openai: '#FFFFFF',
     figma: '#A259FF',
     astro: '#FF5D01',
+    supabase: '#3ECF8E',
+    expo: '#000020',
 };
 
 export const en: ITranslations = {
@@ -82,14 +86,16 @@ export const en: ITranslations = {
         },
     ],
     skills: [
-        { name: 'Vue', category: 'JavaScript Framework', years: 8, icon: icons.vue, iconColor: iconColors.vue },
-        { name: 'React', category: 'JavaScript Library', years: 4, icon: icons.react, iconColor: iconColors.react },
+        { name: 'Vue', category: 'Nuxt / Vue', years: 8, icon: icons.vue, iconColor: iconColors.vue },
+        { name: 'React', category: 'Next.js / React', years: 4, icon: icons.react, iconColor: iconColors.react },
         { name: 'TypeScript', category: 'Programming Language', years: 5, icon: icons.typescript, iconColor: iconColors.typescript },
         { name: 'Tailwind CSS', category: 'CSS Framework', years: 5, icon: icons.tailwind, iconColor: iconColors.tailwind },
         { name: 'Storybook', category: 'Component Dev', years: 3, icon: icons.storybook, iconColor: iconColors.storybook },
         { name: 'AI Tools', category: 'AI Assistant & Agents', years: 2, icon: icons.openai, iconColor: iconColors.openai },
         { name: 'Figma', category: 'Design Tool', years: 5, icon: icons.figma, iconColor: iconColors.figma },
         { name: 'Astro', category: 'Web Framework', years: 2, icon: icons.astro, iconColor: iconColors.astro },
+        { name: 'Supabase', category: 'Backend as a Service', years: 1, icon: icons.supabase, iconColor: iconColors.supabase },
+        { name: 'Expo', category: 'React Native Framework', years: 1, icon: icons.expo, iconColor: iconColors.expo },
     ],
     testimonials: [
         {

@@ -1,17 +1,17 @@
 {
   "active": true,
-  "spec": "019-seo-audit-md",
+  "spec": "021-more-skills",
   "state": "building",
   "subtasks": {
-    "completed": 12,
-    "total": 13,
+    "completed": 1,
+    "total": 2,
     "in_progress": 1,
     "failed": 0
   },
   "phase": {
-    "current": "Build Verification",
-    "id": null,
-    "total": 3
+    "current": "Implementation",
+    "id": 1,
+    "total": 2
   },
   "workers": {
     "active": 0,
@@ -19,7 +19,7 @@
   },
   "session": {
     "number": 2,
-    "started_at": "2026-01-02T13:36:52.163193"
+    "started_at": "2026-01-05T13:30:50.505224"
   },
-  "last_update": "2026-01-02T13:38:51.236194"
+  "last_update": "2026-01-05T13:32:47.184990"
 }
